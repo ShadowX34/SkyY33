@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule ^register_handler\.php$ - [F]
+</IfModule>
+
+<FilesMatch "\.(php)$">
+    php_flag display_errors Off
+    php_value error_reporting 0
+</FilesMatch>
