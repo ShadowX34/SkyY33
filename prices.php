@@ -10,18 +10,26 @@
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">
 </head>
 <body>
-    <header>
+   <header>
         <div class="header-container">
             <div class="logo-container">
-            <a href="index.php"><img src="images/Лого2.png" class="logo"></a>
+                <a href="index.php"><img src="images/Лого2.png" class="logo"></a>
                 <div class="company-name">Владимирский АСК ДОСААФ России<br><span style="font-size:0.9rem;">Прыжки с парашютом</span></div>
             </div>
             
             <div class="nav-container">
                 <ul class="nav-menu">
-                <li class="nav-item"><a href="about.php" class="nav-link">О нас</a></li>
+                    <li class="nav-item dropdown">
+    <a href="about.php" class="nav-link">О нас <i class="fas fa-chevron-down drop-icon"></i></a>
+    <ul class="dropdown-child">
+        <li><a href="team.php">Команда</a></li>
+        <li><a href="reviews.php">Отзывы</a></li>
+        <li><a href="faq.php">Вопрос-ответ</a></li>
+    </ul>
+</li>
                     <li class="nav-item"><a href="certificates.php" class="nav-link">Подарочные сертификаты</a></li>
                     <li class="nav-item"><a href="prices.php" class="nav-link">Цены</a></li>
+                    <li class="nav-item"><a href="gallery.php" class="nav-link">Галерея</a></li>
                     <li class="nav-item"><a href="News.php" class="nav-link">Новости</a></li>
                     <li class="nav-item"><a href="stocks.php" class="nav-link">Акции</a></li>
                     <li class="nav-item"><a href="contacts.php" class="nav-link">Контакты</a></li>
@@ -31,6 +39,7 @@
                     <i class="fas fa-phone-alt phone-icon"></i>
                     <a href="tel:89190234000" class="phone-link">8 919 023 40 00</a>
                 </div>
+               
                 
                 <div class="hamburger">
                     <span></span>
@@ -293,21 +302,28 @@
                     <img src="images/Лого2.png" alt="Логотип" class="footer-logo-img">
                     <div class="footer-logo-text">Владимирский АСК ДОСААФ России</div>
                 </div>
-                <p class="footer-about">
-                    Владимирский аэроклуб был основан в 1934 году. С тех пор мы подготовили множество летчиков, парашютистов и механиков, среди которых более 200 мастеров спорта СССР и России.
-                </p>
-                <div class="footer-copyright">
-                    © 2026 Владимирский АСК ДОСААФ России. Все права защищены.
+                <p class="footer-about">Владимирский аэроклуб был основан в 1934 году. С тех пор мы подготовили множество летчиков, парашютистов и механиков, среди которых более 200 мастеров спорта СССР и России.</p>
+                
+                <div class="footer-socials">
+                    <h4 class="socials-title">Мы в социальных сетях:</h4>
+                    <div class="social-icons">
+                        <a href="https://vk.com/dz_vladimir" class="social-icon" target="_blank" title="ВКонтакте"><i class="fab fa-vk"></i></a>
+                        <a href="https://t.me/vladskydive" class="social-icon" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.instagram.com/skydive_vladimir" class="social-icon" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/?_r=1" class="social-icon" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
                 </div>
+                <div class="footer-copyright">© 2026 Владимирский АСК ДОСААФ России. Все права защищены.</div>
             </div>
             
             <!-- Колонка 2: Навигация -->
             <div class="footer-col">
                 <h3 class="footer-section-title">Информация</h3>
                 <ul class="footer-links">
-                <li><a href="about.php">О нас</a></li>
+                    <li><a href="about.php">О нас</a></li>
                     <li><a href="prices.php">Цены</a></li>
                     <li><a href="certificates.php">Подарочные сертификаты</a></li>
+                    <li><a href="gallery.php">Галерея</a></li>
                     <li><a href="News.php">Новости</a></li>
                     <li><a href="stocks.php">Акции</a></li>
                     <li><a href="contacts.php">Контакты</a></li>
@@ -474,6 +490,80 @@
             margin-right: 30px;
             transition: var(--transition);
         }
+
+        .dropdown {
+    position: relative;
+}
+
+.dropdown-child {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--primary-dark);
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1001;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-child {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.dropdown-child li a {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: block;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.dropdown-child li:last-child a {
+    border-bottom: none;
+}
+
+.dropdown-child li a:hover {
+    background: var(--secondary);
+    color: var(--dark);
+    padding-left: 25px;
+}
+
+.drop-icon {
+    font-size: 0.8em;
+    margin-left: 5px;
+    transition: var(--transition);
+}
+
+.dropdown:hover .drop-icon {
+    transform: rotate(180deg);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Для мобильного меню */
+@media (max-width: 992px) {
+    .dropdown-child {
+        position: static;
+        display: none;
+        background: rgba(0,0,0,0.1);
+        box-shadow: none;
+        width: 100%;
+    }
+    .dropdown.active .dropdown-child {
+        display: block;
+    }
+}
 
         .nav-item {
             position: relative;
@@ -986,6 +1076,51 @@
             opacity: 0.7;
         }
 
+        /* 
+           СОЦИАЛЬНЫЕ СЕТИ В ПОДВАЛЕ
+           */
+        .footer-socials {
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .socials-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Эффект при наведении */
+        .social-icon:hover {
+            background: var(--secondary); /* Желтый цвет */
+            color: var(--dark); /* Темный цвет иконки */
+            transform: translateY(-5px); /* Легкое подпрыгивание вверх */
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4); /* Желтое свечение */
+            border-color: var(--secondary);
+        }
+
         /* Адаптивность */
         @media (max-width: 1200px) {
             .footer {
@@ -1031,5 +1166,62 @@
             }
         }
 </style>
+
+<a href="https://wa.me/+79190234000 ?text=3дравствуйте!" class="whatsapp-float" target="_blank" title="Написать в WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        /* 
+           ПЛАВАЮЩАЯ КНОПКА WHATSAPP
+           */
+        .whatsapp-float {
+            position: fixed;           
+            width: 60px;              
+            height: 60px;             
+            bottom: 30px;              
+            right: 30px;               
+            background-color: #25d366; 
+            color: #FFF;
+            border-radius: 50px;     
+            text-align: center;
+            font-size: 35px;           
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+            z-index: 9999;             
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: pulse-wa 2s infinite; 
+        }
+
+        /* Эффект при наведении курсора */
+        .whatsapp-float:hover {
+            background-color: #128C7E; 
+            color: white;
+            transform: scale(1.1);     
+            animation: none;           
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Анимация пульсации для привлечения внимания */
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Уменьшаем кнопку на мобильных телефонах, чтобы не мешала читать текст */
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+    </style>
 </body>
 </html>

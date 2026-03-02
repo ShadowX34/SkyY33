@@ -66,6 +66,7 @@
             max-width: 200px;
             line-height: 1.3;
         }
+        /* Контейнер для выпадающего меню */
 
         .nav-container {
             display: flex;
@@ -114,6 +115,8 @@
         .nav-link:hover::after {
             width: 100%;
         }
+
+        
         
 
         .phone-container {
