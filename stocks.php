@@ -1,3 +1,7 @@
+<?php
+require 'db_connect.php';
+$stocks = $pdo->query("SELECT * FROM stocks WHERE is_active=1 ORDER BY sort_order ASC, id ASC")->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -5,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Владимирский АСК ДОСААФ России - Прыжки с парашютом</title>
     <link rel="stylesheet" href="css/stocks.css">
+    <link rel="stylesheet" href="css/transitions.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">
@@ -54,56 +59,29 @@
         <h1 class="page-title">АКЦИИ</h1>
         
         <div class="stocks-container">
-            <!-- Акция 1 -->
+            <?php foreach ($stocks as $s): ?>
             <div class="stock-card">
+                <?php if ($s['tag'] || $s['pub_date']): ?>
                 <div class="stock-header">
-                    <div class="stock-tag">SALE!!!</div>
-                    <div class="stock-date">6 декабря 2024</div>
+                    <?php if ($s['tag']): ?><div class="stock-tag"><?= htmlspecialchars($s['tag']) ?></div><?php endif; ?>
+                    <?php if ($s['pub_date']): ?><div class="stock-date"><?= date('j F Y', strtotime($s['pub_date'])) ?></div><?php endif; ?>
                 </div>
+                <?php endif; ?>
                 <div class="stock-content">
-                    <h2 class="stock-title">НОВОГОДНИЕ СКИДКИ НА ПОДАРОЧНЫЕ СЕРТИФИКАТЫ</h2>
-                    <p class="stock-description">
-                        Зима – это по-настоящему чудесное время, когда всё вокруг превращается в сказку! Пора волшебства...
-                    </p>
-                    
-                </div>
-            </div>
-            
-            <!-- Акция 2 -->
-            <div class="stock-card">
-                <div class="stock-content">
-                    <h2 class="stock-title">ДЕНЬ РОЖДЕНИЯ – СКИДКА 10%</h2>
-                    <p class="stock-description">
-                        Предъяви паспорт и получи скидку 10% в свой день рождения!
-                    </p>
-                    
-                </div>
-            </div>
-            
-            <!-- Акция 3 -->
-            <div class="stock-card">
-                <div class="stock-content">
-                    <div class="stock-price">500 ₽</div>
+                    <?php if ($s['price_label']): ?><div class="stock-price"><?= htmlspecialchars($s['price_label']) ?></div><?php endif; ?>
+                    <?php if ($s['detail_text']): ?>
                     <div class="stock-details">
-                        <span class="stock-detail">8 БУДНИХ ДНЕЙ</span>
+                        <span class="stock-detail"><?= htmlspecialchars($s['detail_text']) ?></span>
                     </div>
-                    <h2 class="stock-title">В УДИВЛЕНИИ</h2>
+                    <?php endif; ?>
+                    <h2 class="stock-title"><?= htmlspecialchars($s['title']) ?></h2>
+                    <?php if ($s['description']): ?><p class="stock-description"><?= htmlspecialchars($s['description']) ?></p><?php endif; ?>
                 </div>
             </div>
-            
-            <!-- Акция 4 -->
-            <div class="stock-card">
-                <div class="stock-header">
-                    <div class="stock-date">30 сентября 2021</div>
-                </div>
-                <div class="stock-content">
-                    <div class="stock-price">-500 ₽ В БУДНИЙ ДЕНЬ</div>
-                    <p class="stock-description">
-                        В будний день(четверг) скидка-500 ₽ на прыжок в тандеме
-                    </p>
-                    
-                </div>
-            </div>
+            <?php endforeach; ?>
+            <?php if (empty($stocks)): ?>
+            <p style="text-align:center;color:#888;padding:40px 0">Акции не найдены</p>
+            <?php endif; ?>
         </div>
     </main>
 
@@ -1000,5 +978,6 @@
             }
         }
     </style>
+<script src="js/transitions.js"></script>
 </body>
 </html>

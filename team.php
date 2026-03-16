@@ -6,6 +6,7 @@
     <title>Команда - Владимирский АСК ДОСААФ России</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/transitions.css">
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">
     <style>
         /* БАЗОВЫЕ СТИЛИ */
@@ -123,13 +124,13 @@
         <div class="team-section">
             <h2 class="section-title">Руководство / Администрация</h2>
             <div class="team-grid grid-2">
-                <div class="team-member" data-src="images/team/1.png">
+                <div class="team-member" data-src="images/Team/1.png">
                     <img src="images/Team/1.png" alt="Руководитель 1" class="member-photo">
                     <h3 class="member-name">Иванов Иван</h3>
                     <p class="member-role">Начальник аэроклуба</p>
                 </div>
-                <div class="team-member" data-src="images/team/2.png">
-                    <img src="images/team/2.png" alt="Руководитель 2" class="member-photo">
+                <div class="team-member" data-src="images/Team/2.png">
+                    <img src="images/Team/2.png" alt="Руководитель 2" class="member-photo">
                     <h3 class="member-name">Петрова Анна</h3>
                     <p class="member-role">Главный администратор</p>
                 </div>
@@ -139,28 +140,28 @@
         <div class="team-section">
             <h2 class="section-title">Тандем-инструкторы / Операторы</h2>
             <div class="team-grid grid-5">
-                <div class="team-member" data-src="images/team/3.png">
-                    <img src="images/team/3.png" alt="Инструктор 1" class="member-photo">
+                <div class="team-member" data-src="images/Team/3.png">
+                    <img src="images/Team/3.png" alt="Инструктор 1" class="member-photo">
                     <h3 class="member-name">Смирнов Алексей</h3>
                     <p class="member-role">Тандем-инструктор</p>
                 </div>
-                <div class="team-member" data-src="images/team/4.png">
-                    <img src="images/team/4.png" alt="Инструктор 2" class="member-photo">
+                <div class="team-member" data-src="images/Team/4.png">
+                    <img src="images/Team/4.png" alt="Инструктор 2" class="member-photo">
                     <h3 class="member-name">Козлов Дмитрий</h3>
                     <p class="member-role">Тандем-инструктор</p>
                 </div>
-                <div class="team-member" data-src="images/team/5.png">
-                    <img src="images/team/5.png" alt="Инструктор 3" class="member-photo">
+                <div class="team-member" data-src="images/Team/5.png">
+                    <img src="images/Team/5.png" alt="Инструктор 3" class="member-photo">
                     <h3 class="member-name">Морозов Сергей</h3>
                     <p class="member-role">Воздушный оператор</p>
                 </div>
-                <div class="team-member" data-src="images/team/6.png">
-                    <img src="images/team/6.png" alt="Инструктор 4" class="member-photo">
+                <div class="team-member" data-src="images/Team/6.png">
+                    <img src="images/Team/6.png" alt="Инструктор 4" class="member-photo">
                     <h3 class="member-name">Волков Игорь</h3>
                     <p class="member-role">Тандем-инструктор</p>
                 </div>
-                <div class="team-member" data-src="images/team/7.png">
-                    <img src="images/team/7.png" alt="Инструктор 5" class="member-photo">
+                <div class="team-member" data-src="images/Team/7.png">
+                    <img src="images/Team/7.png" alt="Инструктор 5" class="member-photo">
                     <h3 class="member-name">Соколов Павел</h3>
                     <p class="member-role">Воздушный оператор</p>
                 </div>
@@ -170,8 +171,8 @@
         <div class="team-section">
             <h2 class="section-title">Инструкторы по подготовке к первому прыжку</h2>
             <div class="team-grid grid-1">
-                <div class="team-member" data-src="images/team/8.png">
-                    <img src="images/team/8.png" alt="Инструктор" class="member-photo">
+                <div class="team-member" data-src="images/Team/8.png">
+                    <img src="images/Team/8.png" alt="Инструктор" class="member-photo">
                     <h3 class="member-name">Лебедев Максим</h3>
                     <p class="member-role">Старший инструктор ПДП</p>
                 </div>
@@ -581,5 +582,6 @@
             }
         }
     </style>
+<script src="js/transitions.js"></script>
 </body>
 </html>

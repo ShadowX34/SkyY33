@@ -229,6 +229,72 @@ header {
     .company-name { display: none; }
 }
 
+/* ===== DROPDOWN NAV ===== */
+.dropdown { position: relative; }
+
+.dropdown-child {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--primary-dark);
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1001;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-child {
+    display: block;
+    animation: dropFadeIn 0.3s ease;
+}
+
+.dropdown-child li a {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: block;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.dropdown-child li:last-child a { border-bottom: none; }
+
+.dropdown-child li a:hover {
+    background: var(--secondary);
+    color: var(--dark);
+    padding-left: 25px;
+}
+
+.drop-icon {
+    font-size: 0.8em;
+    margin-left: 5px;
+    transition: var(--transition);
+}
+
+.dropdown:hover .drop-icon { transform: rotate(180deg); }
+
+@keyframes dropFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+    .dropdown-child {
+        position: static;
+        display: none;
+        background: rgba(0,0,0,0.1);
+        box-shadow: none;
+        width: 100%;
+    }
+    .dropdown.active .dropdown-child { display: block; }
+}
+
 /* ===== GALLERY PAGE ===== */
 .gallery-page {
     max-width: 1300px;
@@ -591,6 +657,11 @@ header {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1300px) {
+    .lightbox-prev { left: -35px; }
+    .lightbox-next { right: -35px; }
+}
+
 @media (max-width: 1100px) {
     .photo-grid { grid-template-columns: repeat(3, 1fr); }
 }
@@ -601,6 +672,8 @@ header {
     .footer-container { grid-template-columns: 1fr; gap: 30px; }
     .footer-map { height: 250px; }
     .page-title { font-size: 2rem; }
+    .lightbox-prev { left: -20px; }
+    .lightbox-next { right: -20px; }
 }
 
 @media (max-width: 576px) {

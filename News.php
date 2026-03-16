@@ -1,3 +1,7 @@
+<?php
+require 'db_connect.php';
+$newsItems = $pdo->query("SELECT * FROM news WHERE is_active=1 ORDER BY sort_order ASC, id DESC")->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -5,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Владимирский АСК ДОСААФ России - Прыжки с парашютом</title>
     <link rel="stylesheet" href="css/News.css">
+    <link rel="stylesheet" href="css/transitions.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">
@@ -55,95 +60,21 @@
         <h1 class="page-title">НОВОСТИ</h1>
         
         <div class="news-grid">
-            <!-- Новость 1 -->
+            <?php foreach ($newsItems as $n): ?>
             <div class="news-card">
-                <div class="news-image" style="background-image: url('images/n1.webp');">
-                    <span class="news-tag">ЗАЦЕП!</span>
+                <div class="news-image" style="background-image: url('images/<?= htmlspecialchars($n['image']) ?>');">
+                    <?php if ($n['tag']): ?><span class="news-tag"><?= htmlspecialchars($n['tag']) ?></span><?php endif; ?>
                 </div>
                 <div class="news-content">
-                    <span class="news-date">8 декабря 2024</span>
-                    <h2 class="news-title">НОВОГОДНИЕ СКИДКИ НА ПОДАРОЧНЫЕ СЕРТИФИКАТЫ</h2>
-                    <p class="news-excerpt">
-                        Зима – это по-настоящему чудесное время, когда всё вокруг превращается в сказку! Пора волшебства…
-                    </p>
-                    <!-- <a href="#" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a> -->
+                    <span class="news-date"><?= $n['pub_date'] ? date('j F Y', strtotime($n['pub_date'])) : '' ?></span>
+                    <h2 class="news-title"><?= htmlspecialchars($n['title']) ?></h2>
+                    <p class="news-excerpt"><?= htmlspecialchars($n['excerpt']) ?></p>
                 </div>
             </div>
-            
-            <!-- Новость 2 -->
-            <div class="news-card">
-                <div class="news-image" style="background-image: url('images/n2.webp');">
-                    <span class="news-tag">АЭРОКЛУБ</span>
-                </div>
-                <div class="news-content">
-                    <span class="news-date">9 апреля 2024</span>
-                    <h2 class="news-title">ОТКРЫТИЕ СЕЗОНА 2024</h2>
-                    <p class="news-excerpt">
-                        Признавайтесь, Вы соскучились? Мы ОЧЕНЬ! Соскучились по гулу самолета, мягким облакам и сияющим от счастья…
-                    </p>
-                    <!-- <a href="#" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            
-            <!-- Новость 3 -->
-            <div class="news-card">
-                <div class="news-image" style="background-image: url('images/n3.webp');">
-                    <span class="news-tag">АЭРОКЛУБ</span>
-                </div>
-                <div class="news-content">
-                    <span class="news-date">18 апреля 2023</span>
-                    <h2 class="news-title">ОТКРЫТИЕ СЕЗОНА 2023</h2>
-                    <p class="news-excerpt">
-                        У нас отличные новости! Уже в эти выходные, 22 и 23 апреля, мы планируем открытие…
-                    </p>
-                    <!-- <a href="#" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            
-            <!-- Новость 4 -->
-            <div class="news-card">
-                <div class="news-image" style="background-image: url('images/n4.webp');">
-                    <span class="news-tag">ПРОЕКТ</span>
-                </div>
-                <div class="news-content">
-                    <span class="news-date">31 августа 2022</span>
-                    <h2 class="news-title">"ЮНЫЙ ПАРАШЮТИСТ"</h2>
-                    <p class="news-excerpt">
-                        Финал лета прошёл ярко. На нашем аэродроме завершилась недельная смена детского лагеря проекта "Авангард". С…
-                    </p>
-                    <!-- <a href="#" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            <!--  -->
-            <!-- Новость 5 -->
-            <div class="news-card">
-                <div class="news-image" style="background-image: url('images/n5.webp');">
-                    <span class="news-tag">СОБЫТИЕ</span>
-                </div>
-                <div class="news-content">
-                    <span class="news-date">8 сентября 2022</span>
-                    <h2 class="news-title">ЛЮБОВЬ И СТИХИЯ: ВЛАДИМИРСКИЕ СЕМЬИ РАССКАЗАЛИ О ТОМ, КАК СВЯЗАЛИ СВОЮ ЖИЗНЬ С ОГНЁМ И ВОЗДУХОМ</h2>
-                    <p class="news-excerpt">
-                        Семейные пары во Владимирском регионе не только тушят огонь и ездят на торфяники, чтобы…
-                    </p>
-                    <!-- <a href="#" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            
-            <!-- Новость 6 -->
-            <div class="news-card">
-                <div class="news-image" style="background-image: url('images/n6.webp');">
-                    <span class="news-tag">АКЦИЯ</span>
-                </div>
-                <div class="news-content">
-                    <span class="news-date">24 марта 2022</span>
-                    <h2 class="news-title">СТРЕСС, ПРОБЛЕМЫ, ВЫГОРАНИЕ НА РАБОТЕ?</h2>
-                    <p class="news-excerpt">
-                        Приезжайте к нам! Шквал положительных эмоций накроет вас с головой. Взгляните на жизнь по…
-                    </p>
-                    <!-- <a href="#" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a> -->
-                </div>
-            </div>
+            <?php endforeach; ?>
+            <?php if (empty($newsItems)): ?>
+            <p style="text-align:center;color:#888;padding:40px 0;grid-column:1/-1">Новости не найдены</p>
+            <?php endif; ?>
         </div>
     </main>
 
@@ -1028,5 +959,6 @@
             }
         }
     </style>
+<script src="js/transitions.js"></script>
 </body>
 </html>

@@ -1,3 +1,8 @@
+<?php
+require 'db_connect.php';
+$adminPhotos = $pdo->query("SELECT filename FROM gallery_photos ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
+$adminPhotosJson = json_encode(array_values($adminPhotos), JSON_UNESCAPED_UNICODE);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -5,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Владимирский АСК ДОСААФ России - Галерея</title>
     <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/transitions.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">
@@ -19,9 +25,16 @@
                 <div class="company-name">Владимирский АСК ДОСААФ России<br><span style="font-size:0.9rem;">Прыжки с парашютом</span></div>
             </div>
 
-            <div class="nav-container">
+           <div class="nav-container">
                 <ul class="nav-menu">
-                    <li class="nav-item"><a href="about.php" class="nav-link">О нас</a></li>
+                    <li class="nav-item dropdown">
+    <a href="about.php" class="nav-link">О нас <i class="fas fa-chevron-down drop-icon"></i></a>
+    <ul class="dropdown-child">
+        <li><a href="team.php">Команда</a></li>
+        <li><a href="reviews.php">Отзывы</a></li>
+        <li><a href="faq.php">Вопрос-ответ</a></li>
+    </ul>
+</li>
                     <li class="nav-item"><a href="certificates.php" class="nav-link">Подарочные сертификаты</a></li>
                     <li class="nav-item"><a href="prices.php" class="nav-link">Цены</a></li>
                     <li class="nav-item"><a href="gallery.php" class="nav-link active">Галерея</a></li>
@@ -272,16 +285,18 @@
 
     <script>
 
-    const TOTAL_PAGES = 14;
     const PHOTOS_PER_PAGE_DEFAULT = 24; // 6 рядов × 4
-    const PHOTOS_PAGE_14 = 9;
 
     const PHOTOS = [];
 
+    for (let i = 1; i <= 328; i++) {
+        PHOTOS.push(`images/gallery/${i}.jpg`);
+    }
+    // Admin-uploaded photos
+    const adminPhotos = <?= $adminPhotosJson ?>;
+    adminPhotos.forEach(f => PHOTOS.push(`images/gallery/${f}`));
 
-for (let i = 1; i <= 328; i++) {
-    PHOTOS.push(`images/gallery/${i}.jpg`);
-}
+    const TOTAL_PAGES = Math.ceil(PHOTOS.length / PHOTOS_PER_PAGE_DEFAULT);
 
     // ЛОГИКА ПАГИНАЦИИ
 
@@ -290,12 +305,8 @@ for (let i = 1; i <= 328; i++) {
     let currentPagePhotos = [];
 
     function getPhotosForPage(page) {
-        if (page <= 13) {
-            const start = (page - 1) * PHOTOS_PER_PAGE_DEFAULT;
-            return PHOTOS.slice(start, start + PHOTOS_PER_PAGE_DEFAULT);
-        } else {
-            return PHOTOS.slice(13 * PHOTOS_PER_PAGE_DEFAULT);
-        }
+        const start = (page - 1) * PHOTOS_PER_PAGE_DEFAULT;
+        return PHOTOS.slice(start, start + PHOTOS_PER_PAGE_DEFAULT);
     }
 
     function renderGrid(page) {
@@ -416,7 +427,13 @@ for (let i = 1; i <= 328; i++) {
         });
 
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', function(e) {
+                const parentDropdown = this.closest('.dropdown');
+                if (parentDropdown && window.innerWidth <= 992) {
+                    e.preventDefault();
+                    parentDropdown.classList.toggle('active');
+                    return;
+                }
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
@@ -531,5 +548,6 @@ for (let i = 1; i <= 328; i++) {
             }
         }
     </style>
+<script src="js/transitions.js"></script>
 </body>
 </html>

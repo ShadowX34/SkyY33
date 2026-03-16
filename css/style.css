@@ -698,21 +698,18 @@
 }
 
 .promo-container {
-    padding-right: 1200px;
     width: 100%;
-    overflow-x: auto;
-    padding-bottom: 20px;
-    -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+    padding: 0 5%;
 }
 
 .promo-row {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
-    padding: 0 10%;
     position: relative;
     z-index: 2;
-    width: max-content;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -725,7 +722,6 @@
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
     width: 350px;
-    flex-shrink: 0;
 }
 
 .promo-card:hover {
@@ -857,40 +853,27 @@
     .promo-section {
         padding: 80px 0;
     }
-    
-    .promo-row {
-        padding: 0 7%;
-    }
 }
 
 @media (max-width: 992px) {
     .section-title {
         font-size: 2.4rem;
     }
-    
+
     .section-subtitle {
         font-size: 1.3rem;
-    }
-    
-    .promo-row {
-        padding: 0 5%;
     }
 }
 
 @media (max-width: 768px) {
-
     .section-title {
         font-size: 1.5rem;
     }
-    
+
     .promo-content {
         padding: 25px;
     }
-    
-    .promo-row {
-        padding: 0 20px;
-    }
-    
+
     .promo-card {
         width: 300px;
     }
@@ -900,30 +883,26 @@
     .promo-section {
         padding: 60px 0;
     }
-    
+
     .section-title {
         font-size: 1.8rem;
     }
-    
+
     .section-subtitle {
         font-size: 1.1rem;
     }
-    
+
     .promo-title {
         font-size: 1.5rem;
     }
-    
+
     .promo-badge {
         font-size: 0.9rem;
         padding: 5px 15px;
     }
-    
+
     .promo-card {
         width: 280px;
-    }
-    
-    .promo-row {
-        padding: 0 15px;
     }
 }
 
