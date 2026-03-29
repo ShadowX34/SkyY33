@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const useApi = () => {
   const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
     timeout: 10000,
   })
 
@@ -14,5 +14,11 @@ export const useApi = () => {
     }
   )
 
-  return { api }
+  return { 
+    api, 
+    get: api.get.bind(api), 
+    post: api.post.bind(api), 
+    put: api.put.bind(api), 
+    del: api.delete.bind(api) 
+  }
 }

@@ -18,7 +18,7 @@ export const prisma = new PrismaClient()
 
 // Настройка CORS
 fastify.register(cors, {
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: true, // разрешить все для разработки
   credentials: true
 })
 
@@ -47,7 +47,7 @@ fastify.get('/', async (request, reply) => {
 
 const start = async () => {
   try {
-    const port = process.env.PORT || 3001
+    const port = process.env.PORT || 3000
     await fastify.listen({ port: port, host: '0.0.0.0' })
     console.log(`Server listening on port ${port}`)
   } catch (err) {

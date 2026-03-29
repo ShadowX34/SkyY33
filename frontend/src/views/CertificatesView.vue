@@ -64,6 +64,28 @@ const form = reactive({
 
 const isSubmitting = ref(false)
 
+// Маска телефона +7 (XXX) XXX-XX-XX
+const formatPhone = (e) => {
+  let value = e.target.value.replace(/\D/g, '') // только цифры
+  
+  // Убираем первую 7 или 8, если уже стоит
+  if (value.startsWith('8')) value = '7' + value.slice(1)
+  if (!value.startsWith('7')) value = '7' + value
+  
+  // Ограничиваем до 11 цифр
+  value = value.slice(0, 11)
+  
+  // Форматируем
+  let formatted = '+7'
+  if (value.length > 1) formatted += ' (' + value.slice(1, 4)
+  if (value.length >= 4) formatted += ') ' + value.slice(4, 7)
+  if (value.length >= 7) formatted += '-' + value.slice(7, 9)
+  if (value.length >= 9) formatted += '-' + value.slice(9, 11)
+  
+  form.phone = formatted
+  e.target.value = formatted
+}
+
 const openModal = (cert) => {
   selectedCert.value = cert
   isModalOpen.value = true
@@ -81,6 +103,13 @@ const closeModal = () => {
 const submitOrder = async () => {
   if (!form.fullName.trim() || !form.phone.trim() || !form.email.trim()) {
     alert('Пожалуйста, заполните обязательные поля')
+    return
+  }
+
+  // Проверка длины телефона — должно быть 11 цифр
+  const digitsOnly = form.phone.replace(/\D/g, '')
+  if (digitsOnly.length < 11) {
+    alert('Пожалуйста, введите полный номер телефона')
     return
   }
 
@@ -167,7 +196,15 @@ const submitOrder = async () => {
           
           <div class="form-group">
             <label for="phone">Телефон:</label>
-            <input type="tel" id="phone" v-model="form.phone" required placeholder="+7 (999) 000-00-00">
+            <input 
+              type="tel" 
+              id="phone" 
+              :value="form.phone"
+              @input="formatPhone"
+              required 
+              placeholder="+7 (___) ___-__-__"
+              maxlength="18"
+            >
           </div>
           
           <div class="form-group">

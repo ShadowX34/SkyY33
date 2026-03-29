@@ -9,7 +9,7 @@ $stocks  = $pdo->query("SELECT COUNT(*) FROM stocks WHERE is_active=1")->fetchCo
 $reviews = $pdo->query("SELECT COUNT(*) FROM reviews WHERE is_active=1")->fetchColumn();
 $gallery = $pdo->query("SELECT COUNT(*) FROM gallery_photos")->fetchColumn();
 
-$recentOrders = $pdo->query("SELECT * FROM certificate_orders ORDER BY order_date DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+$recentOrders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -71,10 +71,15 @@ $recentOrders = $pdo->query("SELECT * FROM certificate_orders ORDER BY order_dat
                         <td><?= $o['id'] ?></td>
                         <td><?= htmlspecialchars($o['full_name']) ?><br><small style="color:#888"><?= htmlspecialchars($o['phone']) ?></small></td>
                         <td><?= htmlspecialchars($o['certificate_name']) ?></td>
-                        <td><?= date('d.m.Y', strtotime($o['order_date'])) ?></td>
+                        <td><?= date('d.m.Y', strtotime($o['created_at'])) ?></td>
                         <td><?php
                             $s = $o['status'] ?? 'Новый';
-                            $cls = match($s) { 'Новый'=>'warning','Обработан'=>'success','Отменён'=>'danger', default=>'secondary' };
+                            $cls = 'secondary';
+                            switch($s) {
+                                case 'Новый': $cls = 'warning'; break;
+                                case 'Обработан': $cls = 'success'; break;
+                                case 'Отменён': $cls = 'danger'; break;
+                            }
                             echo "<span class='badge badge-$cls'>$s</span>";
                         ?></td>
                     </tr>

@@ -8,7 +8,7 @@ export default async function (fastify, opts) {
       const { certificateName, certificatePrice, fullName, phone, email, comment } = request.body
 
       if (!fullName || !phone || !email || !certificateName || !certificatePrice) {
-        return reply.status(400).send({ success: false, message: 'Заполните все обязательные поля' })
+        return reply.status(400).send({ success: false, error: 'Заполните все обязательные поля' })
       }
 
       const order = await prisma.certificateOrder.create({
@@ -25,8 +25,8 @@ export default async function (fastify, opts) {
 
       return { success: true, message: `Заказ успешно сохранен! ID: ${order.id}` }
     } catch (error) {
-      fastify.log.error(error)
-      reply.status(500).send({ success: false, message: 'Database error: ' + error.message })
+      console.error('CRITICAL DATABASE ERROR:', error)
+      reply.status(500).send({ success: false, error: 'Database error: ' + error.message })
     }
   })
 }

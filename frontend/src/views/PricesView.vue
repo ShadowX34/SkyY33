@@ -340,6 +340,7 @@ table th:first-child { text-align: center; }
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   margin-bottom: 50px;
+  align-items: start;
 }
 
 .payment-method {

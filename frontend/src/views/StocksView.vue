@@ -62,7 +62,7 @@ const formatDate = (dateString) => {
             <span class="stock-detail">{{ stock.detail_text }}</span>
           </div>
           
-          <h2 class="stock-title">{{ stock.title }}</h2>
+          <h2 v-if="stock.title && (!stock.price_label || (stock.title.trim().toLowerCase() !== stock.price_label.trim().toLowerCase()))" class="stock-title">{{ stock.title }}</h2>
           <p v-if="stock.description" class="stock-description">{{ stock.description }}</p>
         </div>
 

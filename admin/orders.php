@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['set_status'])) {
 }
 
 $msg = $_GET['msg'] ?? '';
-$orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY order_date DESC")->fetchAll(PDO::FETCH_ASSOC);
+$orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -49,7 +49,12 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY order_date DESC
                     <?php foreach ($orders as $o): ?>
                     <?php
                         $s = $o['status'] ?? 'Новый';
-                        $cls = match($s) { 'Новый'=>'warning','Обработан'=>'success','Отменён'=>'danger', default=>'secondary' };
+                        $cls = 'secondary';
+                        switch($s) {
+                            case 'Новый': $cls = 'warning'; break;
+                            case 'Обработан': $cls = 'success'; break;
+                            case 'Отменён': $cls = 'danger'; break;
+                        }
                     ?>
                     <tr>
                         <td><?= $o['id'] ?></td>
@@ -61,7 +66,7 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY order_date DESC
                         <td><?= htmlspecialchars($o['certificate_name']) ?></td>
                         <td><?= number_format($o['certificate_price'], 0, ',', ' ') ?> ₽</td>
                         <td style="max-width:180px;white-space:normal"><?= htmlspecialchars($o['comment'] ?? '') ?></td>
-                        <td><?= date('d.m.Y H:i', strtotime($o['order_date'])) ?></td>
+                        <td><?= date('d.m.Y H:i', strtotime($o['created_at'])) ?></td>
                         <td>
                             <form method="post" style="display:flex;gap:5px;align-items:center">
                                 <input type="hidden" name="id" value="<?= $o['id'] ?>">
