@@ -43,11 +43,11 @@
 
         /* СТИЛИ СТРАНИЦЫ КОМАНДА */
         .team-page { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .page-title { font-size: 2.8rem; color: var(--primary-dark); margin-bottom: 50px; text-align: center; position: relative; padding-bottom: 20px; text-transform: uppercase; }
+        .page-title { font-size: 2.8rem; color: var(--primary-dark); margin-bottom: 50px; text-align: center; position: relative; padding-bottom: 20px; text-transform: uppercase; text-shadow: none; }
         .page-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--secondary); }
         
         .team-section { margin-bottom: 60px; }
-        .section-title { font-size: 2rem; color: var(--primary); margin-bottom: 30px; text-align: center; font-weight: 700; }
+        .section-title { font-size: 2rem; color: var(--primary); margin-bottom: 30px; text-align: center; font-weight: 700; text-shadow: none; }
         
         .team-grid { display: grid; gap: 30px; justify-content: center; }
         .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); }
