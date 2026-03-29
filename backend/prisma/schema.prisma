@@ -1,0 +1,96 @@
+// This is your Prisma schema file
+// Reflects the existing MySQL database: ask_dosaaf_db
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Stock {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(255)
+  description String?   @db.Text
+  tag         String?   @db.VarChar(100)
+  price_label String?   @db.VarChar(100)
+  detail_text String?   @db.VarChar(255)
+  pub_date    DateTime? @db.Date
+  is_active   Boolean   @default(true)
+  sort_order  Int       @default(0)
+  created_at  DateTime  @default(now())
+
+  @@map("stocks")
+}
+
+model News {
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  excerpt    String?   @db.Text
+  tag        String?   @db.VarChar(100)
+  image      String?   @db.VarChar(255)
+  pub_date   DateTime  @db.Date
+  is_active  Boolean   @default(true)
+  sort_order Int       @default(0)
+  created_at DateTime  @default(now())
+
+  @@map("news")
+}
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  type        ReviewType @default(slider)
+  image       String?  @db.VarChar(255)
+  review_text String?  @db.Text
+  caption     String?  @db.Text
+  sort_order  Int      @default(0)
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+
+  @@map("reviews")
+}
+
+enum ReviewType {
+  slider
+  gratitude
+}
+
+model GalleryPhoto {
+  id          Int      @id @default(autoincrement())
+  filename    String   @db.VarChar(255)
+  uploaded_at DateTime @default(now())
+
+  @@map("gallery_photos")
+}
+
+model CertificateOrder {
+  id                Int           @id @default(autoincrement())
+  certificate_name  String        @db.VarChar(255)
+  certificate_price Decimal       @db.Decimal(10, 2)
+  full_name         String        @db.VarChar(255)
+  phone             String        @db.VarChar(20)
+  email             String        @db.VarChar(255)
+  comment           String?       @db.Text
+  order_date        DateTime      @default(now())
+  status            OrderStatus   @default(pending)
+
+  @@map("certificate_orders")
+}
+
+enum OrderStatus {
+  pending
+  processed
+  completed
+  cancelled
+}
+
+model AdminUser {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique @db.VarChar(100)
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now())
+
+  @@map("admin_users")
+}

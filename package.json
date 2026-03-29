@@ -1,0 +1,24 @@
+{
+  "name": "sky",
+  "version": "1.0.0",
+  "description": "Сайт аэроклуба с прыжками с парашютом. Стек: PHP 7+, MySQL/PDO, HTML/CSS/JS, XAMPP.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShadowX34/SkyY33.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ShadowX34/SkyY33/issues"
+  },
+  "homepage": "https://github.com/ShadowX34/SkyY33#readme"
+}

@@ -1,80 +1,118 @@
 # Владимирский АСК ДОСААФ России — Сайт
 
-Сайт аэроклуба с прыжками с парашютом. Стек: PHP 7+, MySQL/PDO, HTML/CSS/JS, XAMPP.
+Сайт аэроклуба с прыжками с парашютом.
+
+## Стек технологий
+
+| Слой | Технология |
+|------|-----------|
+| **База данных** | MySQL (ask_dosaaf_db) |
+| **Backend** | Fastify + TypeScript + Prisma |
+| **Frontend** | Vue 3 + Vite + TypeScript |
 
 ---
 
-## Страницы сайта
+## Структура проекта
 
-- `index.php` — Главная
-- `about.php` — О нас
-- `team.php` — Команда
-- `reviews.php` — Отзывы
-- `faq.php` — Вопрос-ответ
-- `gallery.php` — Галерея
-- `certificates.php` — Подарочные сертификаты
-- `prices.php` — Цены
-- `News.php` — Новости
-- `stocks.php` — Акции
-- `contacts.php` — Контакты
-
----
-
-## Админ-панель
-
-Доступна по адресу `/admin/`.
-Логин: `admin` | Пароль: `sky2024`
-
-### Разделы:
-| Раздел | Возможности |
-|--------|-------------|
-| Дашборд | Статистика + последние заказы |
-| Заказы | Просмотр, смена статуса (Новый / Обработан / Отменён) |
-| Акции | Добавление, редактирование, удаление |
-| Новости | Добавление с фото, редактирование, удаление |
-| Галерея | Загрузка фото, удаление |
-| Отзывы | Слайдер + благодарности: добавление, редактирование, удаление |
-
-### Запуск БД:
-Выполнить файл `sql/admin_setup.sql` в phpMyAdmin — создаёт таблицы и заполняет их начальными данными.
+```
+Sky/
+├── backend/          ← Fastify REST API (порт 3000)
+│   ├── src/
+│   │   ├── routes/   ← публичные и admin маршруты
+│   │   └── server.ts ← точка входа
+│   ├── prisma/       ← схема БД
+│   └── .env          ← DATABASE_URL, JWT_SECRET
+│
+├── frontend/         ← Vue 3 + Vite (порт 5173)
+│   ├── src/
+│   │   ├── views/    ← страницы сайта
+│   │   ├── components/← NavBar, Footer, AdminLayout
+│   │   ├── stores/   ← Pinia (auth)
+│   │   ├── router/   ← Vue Router
+│   │   └── api/      ← Axios клиент
+│   └── public/
+│       ├── images/   ← статичные изображения
+│       └── uploads/  ← загружаемые файлы (галерея, новости)
+│
+└── [старые PHP файлы — для совместимости с XAMPP]
+```
 
 ---
 
-## Что было сделано (список изменений)
+## Запуск (разработка)
 
-### Исправление багов
-- Убран `transform` из CSS-анимации появления страницы — из-за него ломались все `position: fixed` элементы: шапка получала отступ сверху, кнопка WhatsApp "прыгала" при скролле, модальное окно сертификатов открывалось наверху страницы
-- Исправлена HTML-ошибка в `reviews.php`: `<<footer` → `<footer`
-- Исправлены пути к изображениям в `team.php`: `images/team/` → `images/Team/` (регистр папки)
-- Удалён `css/register.css` — orphan файл, нигде не подключался
+### 1. База данных
+Убедитесь что MySQL запущен в XAMPP и БД `ask_dosaaf_db` существует.
 
-### Анимации и UX
-- Создан `css/transitions.css` — плавное появление страниц через `opacity`
-- Создан `js/transitions.js` — fade-out при переходе между страницами + scroll-reveal через `IntersectionObserver`
-- Оба файла подключены ко всем 11 страницам сайта
-- Добавлен `scroll-behavior: smooth` для плавного скролла
+Если нет — выполнить в phpMyAdmin:
+```sql
+CREATE DATABASE ask_dosaaf_db;
+```
+Затем запустить `sql/admin_setup.sql` и `2.sql`.
 
-### Адаптивность и стили
-- Карточки акций на главной странице выровнены по центру (`flex-wrap: wrap; justify-content: center`)
-- В галерее кнопки лайтбокса больше не уходят за границы экрана на мобильных
-- В `gallery.php` добавлено выпадающее меню "О нас" (CSS + JS для мобильного тоггла)
-- В `css/prices.css` добавлены адаптивные стили для мобильных устройств
+### 2. Backend
+```bash
+cd backend
+npm install
+npx prisma generate
+npm run dev
+```
 
-### Подключение страниц к базе данных
-- `stocks.php` — акции загружаются из таблицы `stocks`
-- `News.php` — новости загружаются из таблицы `news`
-- `reviews.php` — слайдер и благодарности загружаются из таблицы `reviews`
-- `gallery.php` — фото из админки добавляются к статическим 328 фото, пагинация стала динамической
+### 3. Добавить admin пользователя для JWT
+При первом запуске сервер автоматически создаст пользователя `admin` с паролем `sky2024`.
 
-### Админ-панель (создана с нуля)
-- `admin/login.php` — страница входа с bcrypt-авторизацией
-- `admin/index.php` — дашборд со статистикой
-- `admin/orders.php` — управление заказами сертификатов
-- `admin/stocks.php` + `stocks_save.php` + `stocks_delete.php` — CRUD акций
-- `admin/news.php` + `news_save.php` + `news_delete.php` — CRUD новостей с загрузкой фото
-- `admin/gallery.php` + `gallery_upload.php` + `gallery_delete.php` — загрузка и удаление фото галереи
-- `admin/reviews.php` + `reviews_save.php` + `reviews_delete.php` — CRUD отзывов (слайдер + благодарности)
-- `admin/css/admin.css` — стили админ-панели
-- `admin/auth.php` — защита сессией
-- `admin/sidebar.php` — боковое меню
-- `sql/admin_setup.sql` — SQL-скрипт создания таблиц и начального заполнения данными
+### 4. Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Открыть: http://localhost:5173
+
+---
+
+## Страницы
+
+| Маршрут | Описание |
+|---------|----------|
+| `/` | Главная |
+| `/about` | О нас |
+| `/team` | Команда |
+| `/reviews` | Отзывы |
+| `/faq` | Вопрос-ответ |
+| `/gallery` | Галерея |
+| `/certificates` | Подарочные сертификаты |
+| `/prices` | Цены |
+| `/news` | Новости |
+| `/stocks` | Акции |
+| `/contacts` | Контакты |
+| `/admin` | Админ-панель |
+
+---
+
+## API
+
+Backend работает на `http://localhost:3000`.
+
+| Метод | Маршрут | Описание |
+|-------|---------|----------|
+| GET | `/api/stocks` | Активные акции |
+| GET | `/api/news` | Активные новости |
+| GET | `/api/reviews` | Отзывы (slider/gratitude) |
+| GET | `/api/gallery` | Фото из галереи |
+| POST | `/api/orders` | Создать заказ сертификата |
+| POST | `/api/admin/login` | Авторизация |
+| GET/POST/PUT/DELETE | `/api/admin/stocks` | CRUD акций |
+| GET/POST/PUT/DELETE | `/api/admin/news` | CRUD новостей |
+| GET/POST/DELETE | `/api/admin/gallery` | Управление галереей |
+| GET/POST/PUT/DELETE | `/api/admin/reviews` | CRUD отзывов |
+| GET | `/api/admin/dashboard` | Статистика |
+| PATCH | `/api/admin/orders/:id` | Смена статуса заказа |
+
+---
+
+## Авторизация в Админ-панели
+
+- Логин: `admin`
+- Пароль: `sky2024`
