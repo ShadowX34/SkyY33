@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], $_POST['filename'])) {
     $id       = (int)$_POST['id'];

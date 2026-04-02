@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 $msg  = $_GET['msg'] ?? '';
 $edit = null;
@@ -59,6 +59,10 @@ $gratitudes = $pdo->query("SELECT * FROM reviews WHERE type='gratitude' ORDER BY
                             </div>
                             <?php endif; ?>
                         </div>
+                        <div class="form-group span2">
+                            <label>Имя автора <small style="color:#888">(появится над текстом отзыва)</small></label>
+                            <input type="text" name="author_name" value="<?= htmlspecialchars($edit['author_name'] ?? '') ?>" placeholder="Например: Иван Иванов">
+                        </div>
                         <div class="form-group span2" id="textField">
                             <label>Текст отзыва <small style="color:#888">(для слайдера)</small></label>
                             <textarea name="review_text" rows="3"><?= htmlspecialchars($edit['review_text'] ?? '') ?></textarea>
@@ -91,12 +95,13 @@ $gratitudes = $pdo->query("SELECT * FROM reviews WHERE type='gratitude' ORDER BY
             <div class="card-header"><h2><i class="fas fa-images"></i> Слайдер отзывов (<?= count($sliders) ?>)</h2></div>
             <div class="card-body" style="padding:0;overflow-x:auto">
                 <table>
-                    <thead><tr><th>#</th><th>Фото</th><th>Текст</th><th>Порядок</th><th>Статус</th><th>Действия</th></tr></thead>
+                    <thead><tr><th>#</th><th>Фото</th><th>Автор</th><th>Текст</th><th>Порядок</th><th>Статус</th><th>Действия</th></tr></thead>
                     <tbody>
                     <?php foreach ($sliders as $r): ?>
                     <tr>
                         <td><?= $r['id'] ?></td>
                         <td><img src="../images/reviews/<?= htmlspecialchars($r['image']) ?>" class="thumb" onerror="this.src='../images/Лого2.png'"></td>
+                        <td><strong><?= htmlspecialchars($r['author_name'] ?: '—') ?></strong></td>
                         <td style="max-width:300px;white-space:normal;font-size:0.82rem"><?= htmlspecialchars(mb_substr($r['review_text'] ?? '', 0, 100)) ?>...</td>
                         <td><?= $r['sort_order'] ?></td>
                         <td><span class="badge badge-<?= $r['is_active']?'success':'secondary' ?>"><?= $r['is_active']?'Активен':'Скрыт' ?></span></td>

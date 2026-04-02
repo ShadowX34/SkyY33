@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 $msg = $_GET['msg'] ?? '';
 $uploaded = $pdo->query("SELECT * FROM gallery_photos ORDER BY uploaded_at DESC")->fetchAll(PDO::FETCH_ASSOC);

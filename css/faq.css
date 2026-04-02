@@ -1,0 +1,105 @@
+/* =========================================
+   СТРАНИЦА: FAQ (ВОПРОС-ОТВЕТ)
+   Глобальные стили подключаются через global.css
+   ========================================= */
+
+body {
+    padding-top: 90px;
+}
+
+/* ===== КОНТЕНТ СТРАНИЦЫ ===== */
+.faq-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    font-size: 2.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+}
+
+.faq-container { display: flex; flex-direction: column; gap: 15px; }
+
+.faq-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid #eee;
+}
+
+.faq-item.active {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--primary);
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 20px 25px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.faq-question:hover { color: var(--primary); }
+
+.faq-icon {
+    color: var(--secondary);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background: #fdfdfd;
+}
+
+.faq-answer-inner {
+    padding: 0 25px 25px;
+    color: #444;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.faq-answer-inner ul { margin-left: 20px; margin-top: 10px; }
+.faq-answer-inner li { margin-bottom: 8px; }
+
+.doc-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.doc-link:hover { color: var(--secondary); }

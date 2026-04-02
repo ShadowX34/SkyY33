@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 $msg  = $_GET['msg'] ?? '';
 $edit = null;

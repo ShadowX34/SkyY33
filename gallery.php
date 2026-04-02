@@ -1,61 +1,13 @@
 <?php
-require 'db_connect.php';
+require 'includes/db_connect.php';
 $adminPhotos = $pdo->query("SELECT filename FROM gallery_photos ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
 $adminPhotosJson = json_encode(array_values($adminPhotos), JSON_UNESCAPED_UNICODE);
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Владимирский АСК ДОСААФ России - Галерея</title>
-    <link rel="stylesheet" href="css/gallery.css">
-    <link rel="stylesheet" href="css/transitions.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" href="images/Лого2.png" type="image/x-icon">
-</head>
-<body>
+<?php
+$pageCss = 'gallery.css';
+require_once 'includes/header.php';
+?>
 
-    <!-- ===== ШАПКА ===== -->
-    <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <a href="index.php"><img src="images/Лого2.png" class="logo" alt="Логотип"></a>
-                <div class="company-name">Владимирский АСК ДОСААФ России<br><span style="font-size:0.9rem;">Прыжки с парашютом</span></div>
-            </div>
-
-           <div class="nav-container">
-                <ul class="nav-menu">
-                    <li class="nav-item dropdown">
-    <a href="about.php" class="nav-link">О нас <i class="fas fa-chevron-down drop-icon"></i></a>
-    <ul class="dropdown-child">
-        <li><a href="team.php">Команда</a></li>
-        <li><a href="reviews.php">Отзывы</a></li>
-        <li><a href="faq.php">Вопрос-ответ</a></li>
-    </ul>
-</li>
-                    <li class="nav-item"><a href="certificates.php" class="nav-link">Подарочные сертификаты</a></li>
-                    <li class="nav-item"><a href="prices.php" class="nav-link">Цены</a></li>
-                    <li class="nav-item"><a href="gallery.php" class="nav-link active">Галерея</a></li>
-                    <li class="nav-item"><a href="News.php" class="nav-link">Новости</a></li>
-                    <li class="nav-item"><a href="stocks.php" class="nav-link">Акции</a></li>
-                    <li class="nav-item"><a href="contacts.php" class="nav-link">Контакты</a></li>
-                </ul>
-
-                <div class="phone-container">
-                    <i class="fas fa-phone-alt phone-icon"></i>
-                    <a href="tel:89190234000" class="phone-link">8 919 023 40 00</a>
-                </div>
-
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="gallery-page">
@@ -197,81 +149,7 @@ $adminPhotosJson = json_encode(array_values($adminPhotos), JSON_UNESCAPED_UNICOD
     </main>
 
     <!-- ===== ПОДВАЛ ===== -->
-    <footer class="footer">
-        <div class="footer-container">
-            <!-- Колонка 1: О клубе -->
-            <div class="footer-col">
-                <div class="footer-logo">
-                    <img src="images/Лого2.png" alt="Логотип" class="footer-logo-img">
-                    <div class="footer-logo-text">Владимирский АСК ДОСААФ России</div>
-                </div>
-                <p class="footer-about">Владимирский аэроклуб был основан в 1934 году. С тех пор мы подготовили множество летчиков, парашютистов и механиков, среди которых более 200 мастеров спорта СССР и России.</p>
-                
-                <div class="footer-socials">
-                    <h4 class="socials-title">Мы в социальных сетях:</h4>
-                    <div class="social-icons">
-                        <a href="https://vk.com/dz_vladimir" class="social-icon" target="_blank" title="ВКонтакте"><i class="fab fa-vk"></i></a>
-                        <a href="https://t.me/vladskydive" class="social-icon" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                        <a href="https://www.instagram.com/skydive_vladimir" class="social-icon" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/?_r=1" class="social-icon" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div class="footer-copyright">© 2026 Владимирский АСК ДОСААФ России. Все права защищены.</div>
-            </div>
-
-            <div class="footer-col">
-                <h3 class="footer-section-title">Информация</h3>
-                <ul class="footer-links">
-                    <li><a href="about.php">О нас</a></li>
-                    <li><a href="prices.php">Цены</a></li>
-                    <li><a href="certificates.php">Подарочные сертификаты</a></li>
-                    <li><a href="gallery.php">Галерея</a></li>
-                    <li><a href="News.php">Новости</a></li>
-                    <li><a href="stocks.php">Акции</a></li>
-                    <li><a href="contacts.php">Контакты</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h3 class="footer-section-title">Контакты</h3>
-                <div class="footer-contact-item">
-                    <i class="fas fa-map-marker-alt footer-contact-icon"></i>
-                    <div class="footer-contact-text">
-                        Владимирская область, Суздальский район,<br>аэродром «Сокол»
-                    </div>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fas fa-phone-alt footer-contact-icon"></i>
-                    <div class="footer-contact-text">
-                        <a href="tel:+79190234000">8 (919) 023-40-00</a>
-                    </div>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fas fa-envelope footer-contact-icon"></i>
-                    <div class="footer-contact-text">
-                        <a href="mailto:info@ask-dosaaf.ru">info@ask-dosaaf.ru</a>
-                    </div>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="fas fa-clock footer-contact-icon"></i>
-                    <div class="footer-contact-text">
-                        Пн–Пт: 9:00 – 18:00<br>Сб–Вс: 10:00 – 16:00
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-col">
-                <h3 class="footer-section-title">Схема проезда</h3>
-                <div class="footer-map">
-                    <iframe src="https://yandex.ru/map-widget/v1/?ll=40.583509%2C56.249510&masstransit%5BstopId%5D=1543209455&mode=masstransit&tab=overview&z=17.95" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            Негосударственное образовательное учреждение «Владимирский авиационно-спортивный клуб ДОСААФ России»
-        </div>
-    </footer>
+    
 
     <!-- ===== ЛАЙТБОКС ===== -->
     <div class="lightbox" id="lightbox">
@@ -417,137 +295,14 @@ $adminPhotosJson = json_encode(array_values($adminPhotos), JSON_UNESCAPED_UNICOD
     // БУРГЕР-МЕНЮ
 
     document.addEventListener('DOMContentLoaded', function () {
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', function () {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const parentDropdown = this.closest('.dropdown');
-                if (parentDropdown && window.innerWidth <= 992) {
-                    e.preventDefault();
-                    parentDropdown.classList.toggle('active');
-                    return;
-                }
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
         // Инициализация галереи
         goToPage(1);
     });
     </script>
 
-    <style>
-        /* 
-           СОЦИАЛЬНЫЕ СЕТИ В ПОДВАЛЕ
-           */
-        .footer-socials {
-            margin-top: 25px;
-            margin-bottom: 25px;
-        }
+    
 
-        .socials-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: white;
-            opacity: 0.9;
-        }
 
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
 
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
 
-        /* Эффект при наведении */
-        .social-icon:hover {
-            background: var(--secondary); /* Желтый цвет */
-            color: var(--dark); /* Темный цвет иконки */
-            transform: translateY(-5px); /* Легкое подпрыгивание вверх */
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4); /* Желтое свечение */
-            border-color: var(--secondary);
-        }
-    </style>
-
-    <a href="https://wa.me/+79190234000 ?text=3дравствуйте!" class="whatsapp-float" target="_blank" title="Написать в WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <style>
-        /* 
-           ПЛАВАЮЩАЯ КНОПКА WHATSAPP
-           */
-        .whatsapp-float {
-            position: fixed;          
-            width: 60px;              
-            height: 60px;             
-            bottom: 30px;             
-            right: 30px;               
-            background-color: #25d366; 
-            color: #FFF;
-            border-radius: 50px;     
-            text-align: center;
-            font-size: 35px;           
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
-            z-index: 9999;             
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            animation: pulse-wa 2s infinite; 
-        }
-
-        /* Эффект при наведении курсора */
-        .whatsapp-float:hover {
-            background-color: #128C7E; 
-            color: white;
-            transform: scale(1.1);     
-            animation: none;          
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5);
-        }
-
-        /* Анимация пульсации для привлечения внимания */
-        @keyframes pulse-wa {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        /* Уменьшаем кнопку на мобильных телефонах, чтобы не мешала читать текст */
-        @media (max-width: 768px) {
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 30px;
-            }
-        }
-    </style>
-<script src="js/transitions.js"></script>
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>

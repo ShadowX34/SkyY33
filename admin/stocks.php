@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 $msg  = $_GET['msg'] ?? '';
 $edit = null;
@@ -64,6 +64,10 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
                         <div class="form-group">
                             <label>Дата публикации</label>
                             <input type="date" name="pub_date" value="<?= $edit['pub_date'] ?? '' ?>">
+                        </div>
+                        <div class="form-group span2">
+                            <label>Изображение (путь, напр. images/скидка.webp или URL)</label>
+                            <input type="text" name="image" value="<?= htmlspecialchars($edit['image'] ?? '') ?>" placeholder="images/скидка.webp" style="width:100%">
                         </div>
                         <div class="form-group">
                             <label>Порядок сортировки</label>

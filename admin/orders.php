@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 // Обновление статуса
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['set_status'])) {
@@ -9,8 +9,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['set_status'])) {
     header('Location: orders.php?msg=updated'); exit;
 }
 
+// Удаление одной записи
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    $stmt = $pdo->prepare("DELETE FROM certificate_orders WHERE id=?");
+    $stmt->execute([(int)$_POST['delete_id']]);
+    header('Location: orders.php?msg=deleted'); exit;
+}
+
+// Удаление всех обработанных
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_processed'])) {
+    $pdo->exec("DELETE FROM certificate_orders WHERE status='Обработан'");
+    header('Location: orders.php?msg=deleted_processed'); exit;
+}
+
 $msg = $_GET['msg'] ?? '';
-$orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
+$orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -30,11 +43,22 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC
     <div class="content">
         <?php if ($msg === 'updated'): ?>
         <div class="alert alert-success"><i class="fas fa-check-circle"></i> Статус обновлён</div>
+        <?php elseif ($msg === 'deleted'): ?>
+        <div class="alert alert-success"><i class="fas fa-trash-alt"></i> Запись удалена</div>
+        <?php elseif ($msg === 'deleted_processed'): ?>
+        <div class="alert alert-success"><i class="fas fa-trash-alt"></i> Все обработанные заказы удалены</div>
         <?php endif; ?>
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
                 <h2>Все заказы (<?= count($orders) ?>)</h2>
+                <?php if (count($orders) > 0): ?>
+                <form method="post" onsubmit="return confirm('Удалить все обработанные заказы?')">
+                    <button name="delete_processed" class="btn btn-sm btn-danger" style="background:#dc3545;color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">
+                        <i class="fas fa-broom"></i> Очистить обработанные
+                    </button>
+                </form>
+                <?php endif; ?>
             </div>
             <div class="card-body" style="padding:0;overflow-x:auto">
                 <table>
@@ -43,6 +67,7 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC
                             <th>#</th><th>Клиент</th><th>Контакты</th>
                             <th>Сертификат</th><th>Цена</th>
                             <th>Комментарий</th><th>Дата</th><th>Статус</th>
+                            <th>Удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,6 +103,14 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC
                                 <button name="set_status" class="btn btn-sm btn-primary">✓</button>
                             </form>
                             <span class="badge badge-<?= $cls ?>" style="margin-top:4px"><?= $s ?></span>
+                        </td>
+                        <td>
+                            <form method="post" onsubmit="return confirm('Удалить заказ #<?= $o['id'] ?>?')">
+                                <input type="hidden" name="delete_id" value="<?= $o['id'] ?>">
+                                <button type="submit" title="Удалить" style="background:#dc3545;color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:0.9rem;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     <?php endforeach; ?>

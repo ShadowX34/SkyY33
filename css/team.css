@@ -1,0 +1,156 @@
+/* =========================================
+   СТРАНИЦА: КОМАНДА
+   Глобальные стили (шапка, подвал, сброс)
+   подключаются через global.css
+   ========================================= */
+
+body {
+    padding-top: 90px;
+}
+
+/* ===== КОНТЕНТ СТРАНИЦЫ ===== */
+.team-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    font-size: 2.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+}
+
+.team-section { margin-bottom: 60px; }
+
+.section-title {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.team-grid { display: grid; gap: 30px; justify-content: center; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); }
+.grid-5 { grid-template-columns: repeat(auto-fit, minmax(200px, 300px)); }
+.grid-1 { grid-template-columns: minmax(300px, 400px); }
+
+.team-member {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: var(--transition);
+    cursor: pointer;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.member-photo {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: top;
+    border-bottom: 4px solid var(--secondary);
+}
+
+.member-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 15px 0 5px;
+}
+
+.member-role { color: #666; font-size: 1rem; }
+
+/* ===== ЛАЙТБОКС ===== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.lightbox.open { display: flex; justify-content: center; align-items: center; }
+
+.lightbox-inner {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px; right: 0;
+    color: white;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.lightbox-close:hover { color: var(--secondary); transform: scale(1.1); }
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: none;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-nav:hover { background: var(--secondary); color: var(--dark); }
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
+
+@media (max-width: 768px) {
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
+    .lightbox-close { top: 10px; right: 10px; }
+    .team-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+}

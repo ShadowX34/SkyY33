@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: reviews.php'); exit; }
 
@@ -8,6 +8,7 @@ $id          = (int)($_POST['id'] ?? 0);
 $type        = in_array($_POST['type'] ?? '', ['slider','gratitude']) ? $_POST['type'] : 'slider';
 $review_text = trim($_POST['review_text'] ?? '');
 $caption     = trim($_POST['caption'] ?? '');
+$author_name = trim($_POST['author_name'] ?? '');
 $sort_order  = (int)($_POST['sort_order'] ?? 0);
 $is_active   = isset($_POST['is_active']) ? 1 : 0;
 
@@ -33,10 +34,10 @@ if (!empty($_FILES['image']['name'])) {
 }
 
 if ($id > 0) {
-    $stmt = $pdo->prepare("UPDATE reviews SET type=?,image=?,review_text=?,caption=?,sort_order=?,is_active=? WHERE id=?");
-    $stmt->execute([$type,$image,$review_text,$caption,$sort_order,$is_active,$id]);
+    $stmt = $pdo->prepare("UPDATE reviews SET type=?,image=?,author_name=?,review_text=?,caption=?,sort_order=?,is_active=? WHERE id=?");
+    $stmt->execute([$type,$image,$author_name,$review_text,$caption,$sort_order,$is_active,$id]);
 } else {
-    $stmt = $pdo->prepare("INSERT INTO reviews (type,image,review_text,caption,sort_order,is_active) VALUES (?,?,?,?,?,?)");
-    $stmt->execute([$type,$image,$review_text,$caption,$sort_order,$is_active]);
+    $stmt = $pdo->prepare("INSERT INTO reviews (type,image,author_name,review_text,caption,sort_order,is_active) VALUES (?,?,?,?,?,?,?)");
+    $stmt->execute([$type,$image,$author_name,$review_text,$caption,$sort_order,$is_active]);
 }
 header('Location: reviews.php?msg=saved'); exit;

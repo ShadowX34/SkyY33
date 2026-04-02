@@ -1,27 +1,7 @@
 (function () {
     'use strict';
 
-    /* ── Page transition on link click ── */
-    document.addEventListener('click', function (e) {
-        var a = e.target.closest('a[href]');
-        if (!a) return;
-        var href = a.getAttribute('href');
-        if (
-            !href ||
-            href.charAt(0) === '#' ||
-            href.indexOf('mailto:') === 0 ||
-            href.indexOf('tel:') === 0 ||
-            a.target === '_blank' ||
-            (href.indexOf('://') > -1 && a.hostname !== location.hostname)
-        ) return;
-
-        e.preventDefault();
-        var dest = a.href;
-        document.body.classList.add('page-leaving');
-        setTimeout(function () { location.href = dest; }, 300);
-    });
-
-    /* ── Scroll reveal ── */
+    /* ── Page transition on link click (removed) ── */
     if (!window.IntersectionObserver) return;
 
     var io = new IntersectionObserver(function (entries) {
@@ -41,8 +21,8 @@
             el.addEventListener('transitionend', function onEnd(e) {
                 if (e.propertyName !== 'opacity') return;
                 el.style.transition      = '';
-                el.style.opacity         = '';
-                el.style.transform       = '';
+                el.style.opacity         = '1';
+                el.style.transform       = 'translateY(0)';
                 el.dataset.srDelay       = '';
                 el.classList.remove('sr');
                 el.removeEventListener('transitionend', onEnd);

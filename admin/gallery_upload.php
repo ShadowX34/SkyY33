@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_FILES['images'])) {
     header('Location: gallery.php'); exit;

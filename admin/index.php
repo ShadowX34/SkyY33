@@ -1,6 +1,6 @@
 <?php
 require 'auth.php';
-require '../db_connect.php';
+require '../includes/db_connect.php';
 
 $orders  = $pdo->query("SELECT COUNT(*) FROM certificate_orders")->fetchColumn();
 $newOrders = $pdo->query("SELECT COUNT(*) FROM certificate_orders WHERE status='Новый'")->fetchColumn();
@@ -9,7 +9,7 @@ $stocks  = $pdo->query("SELECT COUNT(*) FROM stocks WHERE is_active=1")->fetchCo
 $reviews = $pdo->query("SELECT COUNT(*) FROM reviews WHERE is_active=1")->fetchColumn();
 $gallery = $pdo->query("SELECT COUNT(*) FROM gallery_photos")->fetchColumn();
 
-$recentOrders = $pdo->query("SELECT * FROM certificate_orders ORDER BY created_at DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
+$recentOrders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ru">

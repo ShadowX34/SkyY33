@@ -1,0 +1,680 @@
+/* =========================================
+   СТРАНИЦА: ГЛАВНАЯ (INDEX)
+   Глобальные стили подключаются через global.css
+   ========================================= */
+
+/* ===== ПЕРВЫЙ БЛОК - ГЕРОЙ ===== */
+.hero-section {
+    height: 100vh;
+    min-height: 700px;
+    background: 
+        linear-gradient(rgba(33, 109, 189, 0.7), rgba(25, 134, 250, 0.685)),
+        url('../images/Гл фон.webp') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    margin-top: 80px; /* Учитываем высоту шапки */
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    z-index: 2;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hero-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: var(--secondary);
+    color: var(--dark);
+    border: 2px solid var(--secondary);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--secondary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Анимация фона */
+@keyframes zoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.hero-section:hover {
+    animation: zoom 20s infinite alternate ease-in-out;
+}
+
+/* ===== СЕКЦИЯ "НАШИ УСЛУГИ" ===== */
+.services-section {
+    padding: 100px 10%;
+    background-color: white;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 70px;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title, .sections-title, .section-titles, .section-tit {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 1 !important; /* Убеждаемся, что заголовок не пропадает */
+    visibility: visible !important;
+}
+
+.section-subtitle, .sections-subtitle {
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.section-subtitle::after, .sections-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--secondary);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 40px;
+}
+
+.service-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    position: relative;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-image {
+    height: 250px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.service-content {
+    padding: 30px;
+}
+
+.service-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.service-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--secondary);
+}
+
+.service-price {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: var(--dark);
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-features {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.service-features li {
+    padding: 8px 0;
+    position: relative;
+    padding-left: 25px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.service-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid var(--primary);
+}
+
+.service-btn:hover {
+    background-color: transparent;
+    color: var(--primary);
+}
+
+/* ===== СЕКЦИЯ АКЦИЙ ===== */
+.promo-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.promo-container {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.promo-section .section-title, 
+.promo-section .section-subtitle,
+.promo-section .section-titles {
+    color: white !important;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+}
+
+.promo-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+    padding: 0 10%;
+    position: relative;
+    z-index: 2;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.promo-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    width: 350px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.promo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.promo-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--secondary);
+    color: var(--dark);
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
+
+.promo-image {
+    height: 250px; /* Увеличим немного высоту для сочности */
+    width: 100%;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background-color: #f0f0f0; /* Легкий фон на время загрузки */
+}
+
+/* На случай, если картинка вставлена тегом img */
+.promo-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block;
+}
+
+.promo-content {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.promo-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.promo-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.promo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    padding: 12px 20px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid var(--primary);
+    text-align: center;
+    width: 100%;
+    min-height: 50px;
+}
+
+.promo-btn:hover {
+    background-color: transparent;
+    color: var(--primary);
+}
+
+/* ===== СЕКЦИЯ "О НАС" ===== */
+.about-section {
+    padding: 100px 10%;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-titles {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+.about-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.highlight-item {
+    background: rgba(33, 109, 189, 0.05);
+    border-left: 4px solid var(--secondary);
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.highlight-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.highlight-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.about-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid var(--primary);
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.about-btn:hover {
+    background-color: transparent;
+    color: var(--primary);
+}
+
+.about-images {
+    position: relative;
+    height: 100%;
+}
+
+.main-image {
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.secondary-image {
+    position: absolute;
+    width: 60%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.image-1 {
+    bottom: -30px;
+    left: -30px;
+    border: 5px solid white;
+}
+
+.image-2 {
+    top: -30px;
+    right: -30px;
+    border: 5px solid white;
+}
+
+/* ===== СЕКЦИЯ НОВОСТЕЙ ===== */
+.news-section {
+    padding: 100px 10%;
+    background-color: var(--light);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Убираем лишние дубликаты заголовков в секции новостей */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.news-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    position: relative;
+    height: 420px;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.news-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.news-image {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.news-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    transition: var(--transition);
+}
+
+.news-card:hover .news-image {
+    transform: scale(1.05);
+}
+
+.news-card:hover .news-image::after {
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 100%);
+}
+
+.news-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    z-index: 2;
+    box-sizing: border-box;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.news-date {
+    background: var(--secondary);
+    color: var(--dark);
+    font-weight: 700;
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.news-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.35;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.news-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    opacity: 0.95;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.all-news-btn {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    padding: 15px 40px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid var(--primary);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.all-news-btn:hover {
+    background-color: transparent;
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 1200px) {
+    .hero-title { font-size: 4rem; }
+    .news-grid { gap: 20px; }
+}
+
+@media (max-width: 992px) {
+    .hero-title { font-size: 3.5rem; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .about-container { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .section-title, .sections-title, .section-titles, .section-tit { font-size: 2.2rem !important; }
+    .section-subtitle, .sections-subtitle { font-size: 1.2rem !important; }
+    .hero-section { padding: 0 5%; text-align: center; justify-content: center; }
+    .hero-content { align-items: center; }
+    .hero-title { font-size: 2.8rem; }
+    .hero-subtitle { font-size: 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 576px) {
+    .section-title, .sections-title, .section-titles, .section-tit { font-size: 1.8rem !important; }
+    .section-subtitle, .sections-subtitle { font-size: 1rem !important; }
+    .hero-title { font-size: 2.2rem; }
+    .hero-buttons { flex-direction: column; }
+    .hero-btn { width: 100%; }
+    .all-news-btn { width: 100%; }
+}
