@@ -40,13 +40,13 @@
     - Возвращены градиентные подложки на карточки новостей для читаемости белого текста.
 - **Типографика:** Добавлены адаптивные размеры шрифтов для заголовков на мобильных устройствах (768px и 576px).
 
-### 🚀 Recent Updates (English)
-- **Image Handling:** Standardized image path resolution for "Stocks" and "News" across the homepage, dedicated pages, and the Admin panel. Fixed broken external image links in the database.
-- **Mobile Navigation:** Resolved burger menu initialization conflicts on `faq.php` and `reviews.php`.
-- **Performance Optimization:** Refactored the Video section in `gallery.php` to use lightweight link-based cards, significantly improving page load times and mobile usability.
-- **Responsive Design:** Optimized the price table for mobile devices (hidden redundant columns, improved scrolling).
-- **Localization:** Standardized date formatting to Russian month names across all News sections.
-- **Compliance:** Created a dedicated Privacy Policy page (`privacy.php`) and linked it from the Contacts section.
+### 🚀 Последние обновления
+- **Работа с изображениями:** Унифицирована обработка путей к картинкам в «Акциях» и «Новостях» (на главной, в разделах и админке). Исправлены битые внешние ссылки в базе данных.
+- **Мобильная навигация:** Устранены конфликты инициализации бургер-меню на страницах `faq.php` и `reviews.php`.
+- **Оптимизация производительности:** Раздел видео в Галерее (`gallery.php`) переведен на легкие карточки-ссылки, что существенно ускорило загрузку страницы.
+- **Адаптивный дизайн:** Оптимизирована таблица цен для телефонов (скрыты лишние колонки, улучшен скроллинг).
+- **Локализация:** Названия месяцев в датах новостей теперь отображаются на русском языке.
+- **Юридическая информация:** Создана страница политики конфиденциальности (`privacy.php`) и добавлена ссылка на неё в разделе контактов.
 
 ---
 *Проект Владимирского АСК ДОСААФ России.*
