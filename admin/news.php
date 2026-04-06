@@ -59,9 +59,12 @@ $rows = $pdo->query("SELECT * FROM news ORDER BY sort_order ASC, pub_date DESC")
                         <div class="form-group">
                             <label>Изображение <?= $edit ? '(оставьте пустым чтобы не менять)' : '' ?></label>
                             <input type="file" name="image" accept="image/*" <?= $edit?'':'required' ?>>
-                            <?php if ($edit && $edit['image']): ?>
+                            <?php if ($edit && $edit['image']): 
+                                $preview = preg_match('/^(http|images\/)/i', $edit['image']) ? '../' . $edit['image'] : '../images/' . $edit['image'];
+                                if (strpos($edit['image'], 'http') === 0) $preview = $edit['image'];
+                            ?>
                             <div style="margin-top:8px">
-                                <img src="../images/<?= htmlspecialchars($edit['image']) ?>" class="thumb" style="width:80px;height:50px;object-fit:cover">
+                                <img src="<?= htmlspecialchars($preview) ?>" class="thumb" style="width:80px;height:50px;object-fit:cover">
                                 <span class="form-hint"><?= htmlspecialchars($edit['image']) ?></span>
                             </div>
                             <?php endif; ?>
@@ -94,7 +97,10 @@ $rows = $pdo->query("SELECT * FROM news ORDER BY sort_order ASC, pub_date DESC")
                     <?php foreach ($rows as $r): ?>
                     <tr>
                         <td><?= $r['id'] ?></td>
-                        <td><?php if ($r['image']): ?><img src="../images/<?= htmlspecialchars($r['image']) ?>" class="thumb"><?php endif; ?></td>
+                        <td><?php if ($r['image']): 
+                                $thumb = preg_match('/^(http|images\/)/i', $r['image']) ? '../' . $r['image'] : '../images/' . $r['image'];
+                                if (strpos($r['image'], 'http') === 0) $thumb = $r['image'];
+                            ?><img src="<?= htmlspecialchars($thumb) ?>" class="thumb" style="width:80px;height:50px;object-fit:cover"><?php endif; ?></td>
                         <td><?= htmlspecialchars($r['title']) ?></td>
                         <td><?= htmlspecialchars($r['tag'] ?? '—') ?></td>
                         <td><?= date('d.m.Y', strtotime($r['pub_date'])) ?></td>

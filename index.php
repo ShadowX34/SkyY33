@@ -41,11 +41,6 @@ $news = $pdo->query("SELECT * FROM news WHERE is_active=1 ORDER BY pub_date DESC
             }
         });
 
-        // Мобильное меню
-        document.querySelector('.hamburger').addEventListener('click', function() {
-            this.classList.toggle('active');
-            document.querySelector('.nav-menu').classList.toggle('mobile-active');
-        });
     </script>
 
     <!-- Блок 2 -->
@@ -168,7 +163,11 @@ $news = $pdo->query("SELECT * FROM news WHERE is_active=1 ORDER BY pub_date DESC
             <?php foreach ($stocks as $s): ?>
             <div class="promo-card">
                 <?php if ($s['tag']): ?><div class="promo-badge"><?= htmlspecialchars($s['tag']) ?></div><?php endif; ?>
-                <div class="promo-image" style="background-image: url('<?= htmlspecialchars($s['image'] ?: 'images/скидка.webp') ?>');"></div>
+                <?php
+                $stImgUrl = $s['image'] ?: 'images/скидка.webp';
+                if ($s['image'] && !preg_match('/^(http|images\/)/i', $s['image'])) $stImgUrl = 'images/' . $s['image'];
+                ?>
+                <div class="promo-image" style="background-image: url('<?= htmlspecialchars($stImgUrl) ?>');"></div>
                 <div class="promo-content">
                     <h3 class="promo-title"><?= htmlspecialchars($s['title']) ?></h3>
                     <?php if ($s['description']): ?><p class="promo-text"><?= htmlspecialchars($s['description']) ?></p><?php endif; ?>
@@ -277,7 +276,11 @@ $news = $pdo->query("SELECT * FROM news WHERE is_active=1 ORDER BY pub_date DESC
         <div class="news-grid">
             <?php foreach ($news as $n): ?>
             <a href="news_detail.php?id=<?= $n['id'] ?>" class="news-card">
-                <div class="news-image" style="background-image: url('<?= htmlspecialchars($n['image'] ?: 'images/News.jpg') ?>');">
+                <?php
+                $newsImgUrl = $n['image'] ?: 'images/News.jpg';
+                if ($n['image'] && !preg_match('/^(http|images\/)/i', $n['image'])) $newsImgUrl = 'images/' . $n['image'];
+                ?>
+                <div class="news-image" style="background-image: url('<?= htmlspecialchars($newsImgUrl) ?>');">
                     <div class="news-content">
                         <?php
                             $months = [

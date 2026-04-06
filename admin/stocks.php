@@ -93,11 +93,15 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
             <div class="card-header"><h2>Все акции (<?= count($rows) ?>)</h2></div>
             <div class="card-body" style="padding:0;overflow-x:auto">
                 <table>
-                    <thead><tr><th>#</th><th>Заголовок</th><th>Тег</th><th>Дата</th><th>Статус</th><th>Действия</th></tr></thead>
+                    <thead><tr><th>#</th><th>Фото</th><th>Заголовок</th><th>Тег</th><th>Дата</th><th>Статус</th><th>Действия</th></tr></thead>
                     <tbody>
                     <?php foreach ($rows as $r): ?>
                     <tr>
                         <td><?= $r['id'] ?></td>
+                        <td><?php if ($r['image']): 
+                                $thumb = preg_match('/^(http|images\/)/i', $r['image']) ? '../' . $r['image'] : '../images/' . $r['image'];
+                                if (strpos($r['image'], 'http') === 0) $thumb = $r['image'];
+                            ?><img src="<?= htmlspecialchars($thumb) ?>" class="thumb" style="width:80px;height:50px;object-fit:cover"><?php endif; ?></td>
                         <td><?= htmlspecialchars($r['title']) ?><br>
                             <?php if ($r['price_label']): ?><small style="color:#888"><?= htmlspecialchars($r['price_label']) ?></small><?php endif; ?>
                         </td>

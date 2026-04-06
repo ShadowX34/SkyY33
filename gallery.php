@@ -35,30 +35,21 @@ require_once 'includes/header.php';
         <div class="video-grid">
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/ZKb-3bqPpvQ"
-                        title="Видео 2024 - 1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=ZKb-3bqPpvQ" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/ZKb-3bqPpvQ/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/G4-eBddF4Xo"
-                        title="Видео 2024 - 2"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=G4-eBddF4Xo" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/G4-eBddF4Xo/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/N6MBwWyoxs4"
-                        title="Видео 2024 - 3"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=N6MBwWyoxs4" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/N6MBwWyoxs4/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
         </div>
 
@@ -66,30 +57,21 @@ require_once 'includes/header.php';
         <div class="video-grid" style="margin-top:30px;">
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/pE1s0u3yS2A"
-                        title="Видео 2023 - 1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=pE1s0u3yS2A" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/pE1s0u3yS2A/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/Iuxp6tCWA6A"
-                        title="Видео 2023 - 2"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=Iuxp6tCWA6A" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/Iuxp6tCWA6A/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/-3lxkTTXc1Q"
-                        title="Видео 2023 - 3"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=-3lxkTTXc1Q" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/-3lxkTTXc1Q/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
         </div>
 
@@ -97,30 +79,21 @@ require_once 'includes/header.php';
         <div class="video-grid" style="margin-top:30px;">
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/sXaws0VfiwM"
-                        title="Видео 2022 - 1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=sXaws0VfiwM" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/sXaws0VfiwM/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/OJiq3GQcbZQ"
-                        title="Видео 2022 - 2"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=OJiq3GQcbZQ" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/OJiq3GQcbZQ/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2020</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/jnwGj5PE_b8"
-                        title="Видео 2022 - 3"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=jnwGj5PE_b8" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/jnwGj5PE_b8/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
         </div>
 
@@ -128,21 +101,15 @@ require_once 'includes/header.php';
         <div class="video-grid" style="margin-top:30px;">
             <div class="video-card">
                 <div class="video-year">2020</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/Fn3rI7Tnr4U"
-                        title="Видео 2021 - 1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=Fn3rI7Tnr4U" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/Fn3rI7Tnr4U/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2019</div>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/PnB6G9mAqDs"
-                        title="Видео 2021 - 2"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen loading="lazy"></iframe>
-                </div>
+                <a href="https://www.youtube.com/watch?v=PnB6G9mAqDs" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/PnB6G9mAqDs/hqdefault.jpg');">
+                    <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
+                </a>
             </div>
         </div>
 

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Владимирский АСК ДОСААФ России - Прыжки с парашютом' ?></title>
     <?php if(isset($pageCss)): ?>
-    <link rel="stylesheet" href="css/<?= htmlspecialchars($pageCss) ?>?v=13.0">
+    <link rel="stylesheet" href="css/<?= htmlspecialchars($pageCss) ?>?v=14.0">
     <?php else: ?>
-    <link rel="stylesheet" href="css/index.css?v=13.0">
+    <link rel="stylesheet" href="css/index.css?v=14.0">
     <?php endif; ?>
-    <link rel="stylesheet" href="css/global.css?v=13.0">
+    <link rel="stylesheet" href="css/global.css?v=14.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">

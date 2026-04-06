@@ -102,7 +102,7 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC")->fetc
                                 </select>
                                 <button name="set_status" class="btn btn-sm btn-primary">✓</button>
                             </form>
-                            <span class="badge badge-<?= $cls ?>" style="margin-top:4px"><?= $s ?></span>
+
                         </td>
                         <td>
                             <form method="post" onsubmit="return confirm('Удалить заказ #<?= $o['id'] ?>?')">

@@ -76,6 +76,7 @@ body {
 .price-highlight {
     color: var(--primary);
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .note {
@@ -193,4 +194,6 @@ body {
     .section-title { font-size: 1.2rem; }
     .offer-text { min-width: 0; }
     .prices-page { padding: 0 15px; }
+    .price-table th:nth-child(3),
+    .price-table td:nth-child(3) { display: none; }
 }

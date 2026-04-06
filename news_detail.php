@@ -27,9 +27,12 @@ require_once 'includes/header.php';
             
             <h1 style="font-size: 2.2rem; color: #1a5a9e; margin-bottom: 20px; text-transform: uppercase; font-weight: 700;"><?= htmlspecialchars($news['title']) ?></h1>
             
-            <?php if ($news['pub_date']): ?>
+            <?php if ($news['pub_date']): 
+                $m = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
+                $ts = strtotime($news['pub_date']);
+            ?>
                 <div style="font-size: 1rem; color: #888; margin-bottom: 30px; font-weight: bold;">
-                    <?= date('j F Y', strtotime($news['pub_date'])) ?>
+                    <?= date('j', $ts) . ' ' . $m[(int)date('n', $ts)] . ' ' . date('Y', $ts) ?>
                 </div>
             <?php endif; ?>
             

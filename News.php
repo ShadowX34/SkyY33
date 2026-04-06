@@ -27,7 +27,11 @@ require_once 'includes/header.php';
                     <?php if ($n['pub_date']): ?>
                     <span class="news-date">
                         <i class="far fa-calendar-alt"></i>
-                        <?= date('j F Y', strtotime($n['pub_date'])) ?>
+                        <?php 
+                            $m = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
+                            $ts = strtotime($n['pub_date']);
+                            echo date('j', $ts) . ' ' . $m[(int)date('n', $ts)] . ' ' . date('Y', $ts);
+                        ?>
                     </span>
                     <?php endif; ?>
                     <h2 class="news-title"><?= htmlspecialchars($n['title']) ?></h2>

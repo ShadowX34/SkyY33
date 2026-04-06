@@ -136,16 +136,7 @@ require_once 'includes/header.php';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // === БУРГЕР МЕНЮ ===
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    if (hamburger) {
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-        });
-    }
+    // === БУРГЕР МЕНЮ ОБРАБАТЫВАЕТСЯ В FOOTER.PHP ===
 
     // === СЛАЙДЕР ОТЗЫВОВ ===
     const reviewsData = <?= $slidersJson ?>;
