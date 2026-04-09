@@ -1,5 +1,28 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
+
+// 1. Секретный пропуск (Защита от любопытных)
+if (isset($_GET['entry']) && $_GET['entry'] === 'Semazino') {
+    $_SESSION['secret_entry_granted'] = true;
+    // Перезагружаем страницу, чтобы убрать ключ из адресной строки (для красоты и безопасности)
+    header('Location: login.php');
+    exit;
+}
+
+// Если у посетителя нет пропуска — показываем фейковую ошибку 404
+if (!isset($_SESSION['secret_entry_granted']) || $_SESSION['secret_entry_granted'] !== true) {
+    header("HTTP/1.0 404 Not Found");
+    echo "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+</body></html>";
+    exit;
+}
+
+
 if (isset($_SESSION['admin_logged_in'])) {
     header('Location: index.php'); exit;
 }
@@ -18,6 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['admin_user'] = $user;
         header('Location: index.php'); exit;
     }
+    
+    // 2. Защита от подбора паролей (Brute-force)
+    // Замедляем ответ сервера на 2 секунды при неверном пароле
+    sleep(2);
     $error = 'Неверный логин или пароль';
 }
 ?>

@@ -120,6 +120,6 @@
         });
     });
     </script>
-    <script src="js/transitions.js?v=1.2"></script>
+    <script src="js/transitions.js?v=1.2" defer></script>
 </body>
 </html>

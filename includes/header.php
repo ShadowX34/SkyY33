@@ -1,8 +1,17 @@
+<?php require_once __DIR__ . '/security.php'; ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- SEO & Social Graph -->
+    <meta name="description" content="Владимирский АСК ДОСААФ России. Прыжки с парашютом в тандеме и самостоятельные полеты. Исполни свою мечту о небе!">
+    <meta property="og:title" content="<?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Владимирский АСК ДОСААФ России' ?>">
+    <meta property="og:description" content="Прыжки с парашютом в тандеме и самостоятельные полеты. Исполни свою мечту о небе!">
+    <meta property="og:image" content="/Sky/images/б1.webp">
+    <meta property="og:type" content="website">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Владимирский АСК ДОСААФ России - Прыжки с парашютом' ?></title>
     <?php if(isset($pageCss)): ?>
     <link rel="stylesheet" href="css/<?= htmlspecialchars($pageCss) ?>?v=14.0">
@@ -10,6 +19,8 @@
     <link rel="stylesheet" href="css/index.css?v=14.0">
     <?php endif; ?>
     <link rel="stylesheet" href="css/global.css?v=14.0">
+    <!-- Для виджета погоды на главной -->
+    <link rel="stylesheet" href="css/instruments.css?v=1.0"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="images/Лого2.png" type="image/x-icon">
