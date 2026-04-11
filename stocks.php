@@ -14,15 +14,15 @@ require_once 'includes/header.php';
             <div class="stock-card">
                 <!-- Картинка слева -->
                 <div class="stock-card-image">
-                    <?php if ($s['image']): ?>
-                        <img src="<?= htmlspecialchars($s['image']) ?>"
-                             alt="<?= htmlspecialchars($s['title']) ?>"
-                             onerror="this.style.display='none';this.parentElement.querySelector('.stock-card-image-placeholder').style.display='flex';">
-                        <div class="stock-card-image-placeholder" style="display:none"><i class="fas fa-tag"></i></div>
-                        <?php if ($s['tag']): ?><span class="stock-badge"><?= htmlspecialchars($s['tag']) ?></span><?php endif; ?>
-                    <?php else: ?>
-                        <div class="stock-card-image-placeholder"><i class="fas fa-tag"></i></div>
-                    <?php endif; ?>
+                    <?php 
+                    $stImg = $s['image'] ?: 'images/stocks/скидка.webp';
+                    if ($s['image'] && !preg_match('/^(http|images\/)/i', $s['image'])) $stImg = 'images/' . $s['image'];
+                    ?>
+                    <img src="<?= htmlspecialchars($stImg) ?>"
+                         alt="<?= htmlspecialchars($s['title']) ?>"
+                         onerror="this.style.display='none';this.parentElement.querySelector('.stock-card-image-placeholder').style.display='flex';">
+                    <div class="stock-card-image-placeholder" style="display:none"><i class="fas fa-tag"></i></div>
+                    <?php if ($s['tag']): ?><span class="stock-badge"><?= htmlspecialchars($s['tag']) ?></span><?php endif; ?>
                 </div>
                 <!-- Контент справа -->
                 <div class="stock-card-body">
