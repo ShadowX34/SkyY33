@@ -62,7 +62,7 @@ body {
 
 .price-table td {
     padding: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #ddd;
 }
 
 .price-table tr:nth-child(even) {

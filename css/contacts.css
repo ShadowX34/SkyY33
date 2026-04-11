@@ -90,8 +90,9 @@ body {
 }
 
 .contact-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    letter-spacing: 0.3px;
 }
 
 .contact-text a {
@@ -114,8 +115,15 @@ body {
 .schedule-day {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #eee;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 2px dashed #ccc;
+}
+
+.schedule-day:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .day-name {
@@ -129,8 +137,8 @@ body {
 }
 
 .divider {
-    height: 1px;
-    background-color: #eee;
+    height: 2px;
+    background-color: #ccc;
     margin: 30px 0;
 }
 
