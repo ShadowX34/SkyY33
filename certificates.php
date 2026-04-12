@@ -153,6 +153,36 @@ require_once 'includes/header.php';
     
 <?php require_once 'includes/footer.php'; ?>
 
+<style>
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: -400px;
+    max-width: 350px;
+    background-color: #fff;
+    padding: 16px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: inherit;
+}
+.toast-notification.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+.toast-notification.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+.toast-notification.show {
+    right: 20px;
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('orderModal');
@@ -165,6 +195,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const hiddenName = document.getElementById('certificateName');
     const hiddenPrice = document.getElementById('certificatePrice');
     const phoneInput = document.getElementById('phone');
+
+    function showNotification(message, isSuccess) {
+        let toast = document.getElementById('toastNotification');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toastNotification';
+            document.body.appendChild(toast);
+        }
+        
+        const icon = isSuccess ? '<i class="fas fa-check-circle" style="font-size: 1.5rem;"></i>' : '<i class="fas fa-exclamation-circle" style="font-size: 1.5rem;"></i>';
+        toast.innerHTML = icon + ' <span>' + message + '</span>';
+        toast.className = 'toast-notification ' + (isSuccess ? 'success' : 'error');
+        
+        // Сброс анимации, если плашка уже открыта
+        toast.classList.remove('show');
+        void toast.offsetWidth;
+        
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    }
 
     // Маска телефона +7 (XXX) XXX-XX-XX
     if (phoneInput) {
@@ -243,16 +296,16 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Спасибо! Ваш заказ успешно оформлен.');
+                    showNotification('Спасибо! Ваш заказ успешно оформлен.', true);
                     modal.style.display = 'none';
                     orderForm.reset();
                 } else {
-                    alert('Ошибка: ' + data.message);
+                    showNotification('Ошибка: ' + data.message, false);
                 }
             })
             .catch(error => {
                 console.error('Ошибка:', error);
-                alert('Произошла ошибка при отправке. Пожалуйста, попробуйте позже.');
+                showNotification('Произошла ошибка при отправке. Пожалуйста, попробуйте позже.', false);
             })
             .finally(() => {
                 submitBtn.textContent = originalText;

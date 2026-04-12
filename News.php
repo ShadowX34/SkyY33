@@ -15,12 +15,12 @@ require_once 'includes/header.php';
             <div class="news-card">
                 <!-- Картинка слева -->
                 <div class="news-card-image">
-                    <?php 
-                    $newsImg = $n['image'] ?: 'images/News.jpg';
-                    if ($n['image'] && !preg_match('/^(http|images\/)/i', $n['image'])) $newsImg = 'images/' . $n['image'];
-                    ?>
-                    <img src="<?= htmlspecialchars($newsImg) ?>" alt="<?= htmlspecialchars($n['title']) ?>">
-                    <?php if ($n['tag']): ?><span class="news-tag"><?= htmlspecialchars($n['tag']) ?></span><?php endif; ?>
+                    <?php if ($n['image']): ?>
+                        <img src="<?= htmlspecialchars($n['image']) ?>" alt="<?= htmlspecialchars($n['title']) ?>">
+                        <?php if ($n['tag']): ?><span class="news-tag"><?= htmlspecialchars($n['tag']) ?></span><?php endif; ?>
+                    <?php else: ?>
+                        <div class="news-card-image-placeholder"><i class="fas fa-newspaper"></i></div>
+                    <?php endif; ?>
                 </div>
                 <!-- Контент справа -->
                 <div class="news-card-body">

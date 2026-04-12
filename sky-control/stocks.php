@@ -61,10 +61,6 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
                             <label>Детали (напр. 8 БУДНИХ ДНЕЙ)</label>
                             <input type="text" name="detail_text" value="<?= htmlspecialchars($edit['detail_text'] ?? '') ?>">
                         </div>
-                        <div class="form-group">
-                            <label>Дата публикации</label>
-                            <input type="date" name="pub_date" value="<?= $edit['pub_date'] ?? '' ?>">
-                        </div>
                         <div class="form-group span2">
                             <label>Изображение (путь, напр. images/скидка.webp или URL)</label>
                             <input type="text" name="image" value="<?= htmlspecialchars($edit['image'] ?? '') ?>" placeholder="images/скидка.webp" style="width:100%">
@@ -93,7 +89,7 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
             <div class="card-header"><h2>Все акции (<?= count($rows) ?>)</h2></div>
             <div class="card-body" style="padding:0;overflow-x:auto">
                 <table>
-                    <thead><tr><th>#</th><th>Фото</th><th>Заголовок</th><th>Тег</th><th>Дата</th><th>Статус</th><th>Действия</th></tr></thead>
+                    <thead><tr><th>#</th><th>Фото</th><th>Заголовок</th><th>Тег</th><th>Статус</th><th>Действия</th></tr></thead>
                     <tbody>
                     <?php foreach ($rows as $r): ?>
                     <tr>
@@ -106,7 +102,6 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
                             <?php if ($r['price_label']): ?><small style="color:#888"><?= htmlspecialchars($r['price_label']) ?></small><?php endif; ?>
                         </td>
                         <td><?= htmlspecialchars($r['tag'] ?? '—') ?></td>
-                        <td><?= $r['pub_date'] ? date('d.m.Y', strtotime($r['pub_date'])) : '—' ?></td>
                         <td><span class="badge badge-<?= $r['is_active']?'success':'secondary' ?>"><?= $r['is_active']?'Активна':'Скрыта' ?></span></td>
                         <td class="actions">
                             <a href="stocks.php?edit=<?= $r['id'] ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>

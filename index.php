@@ -21,6 +21,9 @@ $fs = getFlightStatus();
     <!-- Блок 1 -->
 
     <section class="hero-section" style="position: relative;"> <!-- Added relative for widget pos -->
+        <!-- Vanta.js 3D облака -->
+        <div id="vanta-clouds"></div>
+        
         <div class="hero-content">
             <h1 class="hero-title">МЕЧТАЕТЕ</h1>
             <h2 class="hero-subtitle">О НЕБЕ?</h2>
@@ -73,6 +76,36 @@ $fs = getFlightStatus();
             <div id="fs-status-desc" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.9); margin-top: 14px; text-align: center; font-weight: 700;">Статус: <?= htmlspecialchars($fs['desc']) ?></div>
         </div>
     </section>
+
+    <!-- Three.js + Vanta.js для 3D облаков -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.clouds.min.js"></script>
+    <script>
+    window.addEventListener('load', function() {
+        const vantaEffect = VANTA.CLOUDS({
+            el: '#vanta-clouds',
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            skyColor: 0x1a5eaa,
+            cloudColor: 0x8bacc7,
+            cloudShadowColor: 0x4a6a82,
+            sunColor: 0xb07030,
+            sunGlareColor: 0xa06828,
+            sunlightColor: 0xb0916a,
+            speed: 1.2
+        });
+
+        // Принудительно пересчитываем размер после инициализации,
+        // чтобы canvas заполнил весь блок на мобильных
+        setTimeout(function() {
+            if (vantaEffect && vantaEffect.resize) {
+                vantaEffect.resize();
+            }
+        }, 100);
+    });
+    </script>
 
     <script>
         // Анимация при скролле

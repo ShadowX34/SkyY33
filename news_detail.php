@@ -19,13 +19,11 @@ require_once 'includes/header.php';
 <main class="news-page" style="min-height: 40vh; margin-top: 120px; position: relative; z-index: 10;">
     <div class="news-container" style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
         <div style="background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); padding: 40px;">
-            <?php 
-            $newsImg = $news['image'] ?: 'images/News.jpg';
-            if ($news['image'] && !preg_match('/^(http|images\/)/i', $news['image'])) $newsImg = 'images/' . $news['image'];
-            ?>
+            <?php if ($news['image']): ?>
             <div style="border-radius: 10px; overflow: hidden; margin-bottom: 30px;">
-                <img src="<?= htmlspecialchars($newsImg) ?>" alt="<?= htmlspecialchars($news['title']) ?>" style="width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block;">
+                <img src="<?= htmlspecialchars($news['image']) ?>" alt="<?= htmlspecialchars($news['title']) ?>" style="width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block;">
             </div>
+            <?php endif; ?>
             
             <h1 style="font-size: 2.2rem; color: #1a5a9e; margin-bottom: 20px; text-transform: uppercase; font-weight: 700;"><?= htmlspecialchars($news['title']) ?></h1>
             

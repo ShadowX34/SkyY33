@@ -30,7 +30,7 @@ if (!empty($_FILES['image']['name'])) {
     }
     $filename = 'news_' . uniqid() . '.' . $ext;
     move_uploaded_file($_FILES['image']['tmp_name'], '../images/' . $filename);
-    $image = $filename;
+    $image = 'images/' . $filename;
 } elseif ($id === 0) {
     header('Location: news.php?msg=error'); exit;
 }
