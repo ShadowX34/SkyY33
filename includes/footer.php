@@ -76,6 +76,10 @@
         
         <div class="footer-bottom">
             Негосударственное образовательное учреждение «Владимирский авиационно-спортивный клуб ДОСААФ России»
+            &nbsp;|&nbsp;
+            <a href="privacy.php" style="color: inherit; text-decoration: underline; opacity: 0.75; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">Политика конфиденциальности</a>
+            &nbsp;|&nbsp;
+            <a href="oferta.php" style="color: inherit; text-decoration: underline; opacity: 0.75; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">Публичная оферта</a>
         </div>
     </footer>
 
