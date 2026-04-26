@@ -24,7 +24,7 @@
 3. Запустите Apache и MySQL в панели управления XAMPP.
 4. Импортируйте базу данных из `sql/init_db.sql` (используйте phpMyAdmin).
 5. Проверьте настройки подключения в `includes/db_connect.php` и `includes/config.php`.
-6. Откройте сайт по адресу: `http://localhost/Sky/` или используйте файл `ЗАПУСТИТЬ_САЙТ.bat`.
+6. Откройте сайт по адресу: `http://localhost/Sky/`.
 
 ---
 
