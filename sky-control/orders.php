@@ -52,8 +52,23 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC")->fetc
         <div class="card">
             <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
                 <h2>Все заказы (<?= count($orders) ?>)</h2>
+                
+                <div style="display:flex; gap: 10px; align-items:center; flex-grow:1; justify-content: flex-end; margin-right: 20px;">
+                    <select id="filterColumn" style="padding: 8px; border-radius: 6px; border: 1px solid #ddd; outline: none;">
+                        <option value="0">Все колонки</option>
+                        <option value="1">Клиент</option>
+                        <option value="2">Контакты</option>
+                        <option value="3">Сертификат</option>
+                        <option value="4">Цена</option>
+                        <option value="5">Комментарий</option>
+                        <option value="6">Дата</option>
+                        <option value="7">Статус</option>
+                    </select>
+                    <input type="text" id="filterInput" placeholder="Поиск..." style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; width: 250px;">
+                </div>
+
                 <?php if (count($orders) > 0): ?>
-                <form method="post" onsubmit="return confirm('Удалить все обработанные заказы?')">
+                <form method="post" onsubmit="return confirm('Удалить все обработанные заказы?')" style="margin-left: auto;">
                     <button name="delete_processed" class="btn btn-sm btn-danger" style="background:#dc3545;color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">
                         <i class="fas fa-broom"></i> Очистить обработанные
                     </button>
@@ -120,5 +135,43 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC")->fetc
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterInput = document.getElementById('filterInput');
+    const filterColumn = document.getElementById('filterColumn');
+    const rows = document.querySelectorAll('table tbody tr');
+
+    function applyFilter() {
+        let filter = filterInput.value.toLowerCase();
+        let colIndex = parseInt(filterColumn.value);
+
+        rows.forEach(row => {
+            let text = '';
+            if (colIndex === 0) {
+                text = row.innerText.toLowerCase();
+                let select = row.querySelector('select[name="status"]');
+                if (select) text += ' ' + select.value.toLowerCase();
+            } else {
+                let cell = row.children[colIndex];
+                if (colIndex === 7) {
+                    let s = cell.querySelector('select[name="status"]');
+                    if (s) text = s.value.toLowerCase();
+                } else {
+                    text = cell.innerText.toLowerCase();
+                }
+            }
+            
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    }
+
+    filterInput.addEventListener('input', applyFilter);
+    filterColumn.addEventListener('change', () => {
+        filterInput.focus();
+        applyFilter();
+    });
+});
+</script>
 </body>
 </html>
