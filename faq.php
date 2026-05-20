@@ -144,11 +144,6 @@ require_once 'includes/header.php';
     });
 </script>
 
-<a href="https://wa.me/+79190234000 ?text=3дравствуйте!" class="whatsapp-float" target="_blank"
-    title="Написать в WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 
 
 

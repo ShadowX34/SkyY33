@@ -41,8 +41,4 @@ require_once 'includes/header.php';
         </div>
     </main>
 
-    <a href="https://wa.me/+79190234000?text=Здравствуйте!" class="whatsapp-float" target="_blank" title="Написать в WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
 <?php require_once 'includes/footer.php'; ?>
