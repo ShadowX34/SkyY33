@@ -1,20 +1,24 @@
 <?php
+// Переменная для динамического подключения файла стилей главной страницы в шапке
 $pageCss = 'index.css';
+// Подключаем общую шапку сайта (header)
 require_once 'includes/header.php';
+// Подключаем скрипт соединения с базой данных (переменная $pdo будет доступна здесь)
 require_once 'includes/db_connect.php';
 
-// Загрузка акций (макс 3)
+// SQL-запрос: загружаем список активных акций (is_active=1), сортируем их по весу (sort_order) и ID, ограничиваем выборку 3 карточками
 $stocks = $pdo->query("SELECT * FROM stocks WHERE is_active=1 ORDER BY sort_order ASC, id DESC LIMIT 3")->fetchAll(PDO::FETCH_ASSOC);
 
-// Загрузка новостей (макс 4)
+// SQL-запрос: загружаем последние 4 активные новости, отсортированные по дате публикации
 $news = $pdo->query("SELECT * FROM news WHERE is_active=1 ORDER BY pub_date DESC, id DESC LIMIT 4")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
 
 <?php 
-// Подключаем логику статуса полетов
+// Подключаем скрипт расчета статуса летной годности на основе погоды
 require_once 'includes/flight_status.php'; 
+// Вызываем функцию и сохраняем результаты (баллы, цвета, текст) в массив $fs
 $fs = getFlightStatus();
 ?>
 
@@ -77,28 +81,30 @@ $fs = getFlightStatus();
         </div>
     </section>
 
-    <!-- Three.js + Vanta.js для 3D облаков -->
+    <!-- Подключаем 3D-библиотеку Three.js и плагин Vanta.js для отображения динамических анимированных облаков на фоне -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.clouds.min.js"></script>
     <script>
+    // Ждем полной загрузки страницы, прежде чем инициализировать 3D-эффект
     window.addEventListener('load', function() {
+        // Инициализируем эффект "Clouds" (Облака) в блоке с ID #vanta-clouds
         const vantaEffect = VANTA.CLOUDS({
             el: '#vanta-clouds',
-            mouseControls: true,
-            touchControls: true,
+            mouseControls: true,       // Реагировать на движение мыши на десктопе
+            touchControls: true,       // Реагировать на тач-события на смартфонах
             minHeight: 200.00,
             minWidth: 200.00,
-            skyColor: 0x1a5eaa,
-            cloudColor: 0x8bacc7,
-            cloudShadowColor: 0x4a6a82,
-            sunColor: 0xb07030,
-            sunGlareColor: 0xa06828,
-            sunlightColor: 0xb0916a,
-            speed: 1.2
+            skyColor: 0x1a5eaa,        // Цвет неба (синий)
+            cloudColor: 0x8bacc7,      // Цвет облаков (светло-голубой)
+            cloudShadowColor: 0x4a6a82,// Цвет теней облаков (темно-серый)
+            sunColor: 0xb07030,        // Цвет солнца
+            sunGlareColor: 0xa06828,   // Блики солнца
+            sunlightColor: 0xb0916a,   // Свет солнца
+            speed: 1.2                 // Скорость движения облаков
         });
 
-        // Принудительно пересчитываем размер после инициализации,
-        // чтобы canvas заполнил весь блок на мобильных
+        // Принудительно пересчитываем размеры canvas-элемента через 100мс после инициализации,
+        // чтобы 3D-графика правильно растянулась на весь экран мобильных устройств
         setTimeout(function() {
             if (vantaEffect && vantaEffect.resize) {
                 vantaEffect.resize();
@@ -108,45 +114,48 @@ $fs = getFlightStatus();
     </script>
 
     <script>
-        // Анимация при скролле
+        // Эффект скролла: меняем фон и тень шапки сайта, когда пользователь прокручивает страницу вниз
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 20) {
+                // Если прокрутили больше 20 пикселей - делаем шапку более контрастной и темной
                 header.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.2)';
                 header.style.background = 'linear-gradient(135deg, var(--primary-dark) 0%, #15427e 100%)';
             } else {
+                // Возвращаем исходный вид шапки в самом верху страницы
                 header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
                 header.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)';
             }
         });
 
-        // Анимация Flight Status Gauge
+        // Функция для обновления визуального виджета "Летная годность" новыми данными о погоде
         function updateFlightWidget(data) {
-            const needle = document.getElementById('fs-needle');
-            const counter = document.getElementById('fs-counter');
-            const wind = document.getElementById('fs-wind');
-            const clouds = document.getElementById('fs-clouds');
-            const verdictBox = document.getElementById('fs-verdict-box');
-            const tipsBox = document.getElementById('fs-tips-box');
-            const statusDesc = document.getElementById('fs-status-desc');
+            const needle = document.getElementById('fs-needle');     // Стрелка прибора
+            const counter = document.getElementById('fs-counter');   // Текстовый счетчик процентов
+            const wind = document.getElementById('fs-wind');         // Поле скорости ветра
+            const clouds = document.getElementById('fs-clouds');     // Поле облачности
+            const verdictBox = document.getElementById('fs-verdict-box'); // Блок вердикта
+            const tipsBox = document.getElementById('fs-tips-box');       // Блок советов
+            const statusDesc = document.getElementById('fs-status-desc'); // Описание статуса
 
             if (!needle || !counter) return;
 
-            const targetAngle = parseFloat(data.angle);
-            const targetScore = parseInt(data.score);
+            const targetAngle = parseFloat(data.angle); // Целевой угол поворота стрелки
+            const targetScore = parseInt(data.score);   // Целевое значение процентов (0-100)
 
-            // Поворачиваем стрелку
+            // Плавно поворачиваем стрелку в CSS с помощью CSS-свойства transform: rotate()
             needle.style.transform = `rotate(${targetAngle}deg)`;
             
-            // Анимация цифр (от текущего значения до нового)
+            // Анимация плавного пересчета цифр процентов (от текущего значения до нового)
             let currentScore = parseInt(counter.innerText) || 0;
-            const duration = 1000;
-            const interval = 20;
-            const steps = duration / interval;
-            const increment = (targetScore - currentScore) / steps;
+            const duration = 1000; // Длительность анимации 1 секунда (1000 мс)
+            const interval = 20;   // Шаг обновления 20 мс
+            const steps = duration / interval; // Количество шагов
+            const increment = (targetScore - currentScore) / steps; // Шаг инкремента
             
             const timer = setInterval(() => {
                 currentScore += increment;
+                // Проверяем окончание анимации
                 if ((increment > 0 && currentScore >= targetScore) || (increment < 0 && currentScore <= targetScore)) {
                     counter.innerText = targetScore;
                     clearInterval(timer);
@@ -155,27 +164,28 @@ $fs = getFlightStatus();
                 }
             }, interval);
 
-            // Обновляем текстовые поля
+            // Обновляем текстовые значения параметров погоды на виджете
             if (wind) wind.innerText = data.wind;
             if (clouds) clouds.innerText = data.clouds;
             if (verdictBox) {
                 verdictBox.innerHTML = `"${data.verdict}"`;
-                verdictBox.style.color = data.status_color;
-                verdictBox.style.backgroundColor = data.bg_color;
+                verdictBox.style.color = data.status_color; // Динамически меняем цвет текста
+                verdictBox.style.backgroundColor = data.bg_color; // Динамически меняем фон плашки
             }
             if (tipsBox) tipsBox.innerText = data.tips;
             if (statusDesc) statusDesc.innerText = "Статус: " + data.desc;
         }
 
-        // Первоначальная загрузка и цикл обновлений
+        // Выполняем код после загрузки всей структуры HTML документа (DOM)
         document.addEventListener('DOMContentLoaded', () => {
-            // Берем начальные данные из атрибутов, которые мы уже вывели через PHP
             const needle = document.getElementById('fs-needle');
             if (needle) {
+                // Берем изначальный угол стрелки, который мы уже вывели с сервера с помощью PHP
                 const initialAngle = needle.getAttribute('data-angle');
+                // Переводим угол поворота стрелки обратно в шкалу от 0 до 100 процентов
                 const initialScore = Math.min(100, Math.max(0, Math.round(((parseFloat(initialAngle) + 90) / 180) * 100)));
                 
-                // Запускаем первую анимацию
+                // Запускаем анимацию счетчика и стрелки через 500мс после загрузки для красивого визуального эффекта
                 setTimeout(() => {
                     updateFlightWidget({
                         angle: initialAngle,
@@ -191,12 +201,13 @@ $fs = getFlightStatus();
                 }, 500);
             }
 
-            // Фоновое обновление каждые 60 секунд (для демо на дипломе)
+            // Настройка регулярного AJAX-опроса: каждые 60 секунд отправляем запрос на сервер к файлу ajax_weather.php,
+            // чтобы получить новые данные о погоде и обновить виджет без перезагрузки всей страницы
             setInterval(() => {
                 fetch('ajax_weather.php')
-                    .then(response => response.json())
+                    .then(response => response.json()) // Парсим ответ сервера как JSON
                     .then(data => {
-                        updateFlightWidget(data);
+                        updateFlightWidget(data); // Обновляем виджет полученными данными погоды
                     })
                     .catch(err => console.error('Ошибка обновления погоды:', err));
             }, 60000); 
@@ -320,22 +331,33 @@ $fs = getFlightStatus();
     
     <div class="promo-container">
         <div class="promo-row">
-            <?php foreach ($stocks as $s): ?>
+            <?php 
+            // Цикл foreach перебирает все загруженные из базы данных акции ($stocks)
+            foreach ($stocks as $s): 
+            ?>
             <div class="promo-card">
+                <!-- Если у акции задан тег (например, "-10%" или "Новинка"), выводим ярлычок -->
                 <?php if ($s['tag']): ?><div class="promo-badge"><?= htmlspecialchars($s['tag']) ?></div><?php endif; ?>
+                
                 <?php
+                // Определяем путь к изображению акции. Если в базе пусто, берем картинку по умолчанию
                 $stImgUrl = $s['image'] ?: 'images/скидка.webp';
+                // Если картинка указана и не содержит http или images/, приписываем префикс папки images/
                 if ($s['image'] && !preg_match('/^(http|images\/)/i', $s['image'])) $stImgUrl = 'images/' . $s['image'];
                 ?>
+                
                 <div class="promo-image" style="background-image: url('<?= htmlspecialchars($stImgUrl) ?>');"></div>
                 <div class="promo-content">
+                    <!-- Заголовок и описание акции с защитой от XSS через htmlspecialchars() -->
                     <h3 class="promo-title"><?= htmlspecialchars($s['title']) ?></h3>
                     <?php if ($s['description']): ?><p class="promo-text"><?= htmlspecialchars($s['description']) ?></p><?php endif; ?>
+                    
                     <ul class="promo-features">
                         <?php 
-                        // Разделим текст деталей по переносу строки или точкам, если нужно, 
-                        // но в базе это одно поле detail_text. Для простоты выведем его или разделим по ";"
+                        // Поле detail_text хранит список преимуществ через точку с запятой.
+                        // Разбиваем эту строку в массив по разделителю ";" с помощью функции explode()
                         $details = explode(';', $s['detail_text'] ?? '');
+                        // Выводим каждый пункт списка в теге <li>
                         foreach ($details as $detail): 
                             if (trim($detail)):
                         ?>
@@ -345,6 +367,7 @@ $fs = getFlightStatus();
                         endforeach; 
                         ?>
                     </ul>
+                    <!-- Ссылка на страницу подробного описания конкретной акции по её ID -->
                     <a href="stock_detail.php?id=<?= $s['id'] ?>" class="promo-btn"><?= htmlspecialchars($s['price_label'] ?: 'Подробнее') ?></a>
                 </div>
             </div>
@@ -434,25 +457,36 @@ $fs = getFlightStatus();
         </div>
         
         <div class="news-grid">
-            <?php foreach ($news as $n): ?>
+            <?php 
+            // Цикл foreach перебирает все загруженные из базы данных новости ($news)
+            foreach ($news as $n): 
+            ?>
             <a href="news_detail.php?id=<?= $n['id'] ?>" class="news-card">
                 <?php
+                // Формируем путь к картинке новости (если нет в БД, берем заглушку)
                 $newsImgUrl = $n['image'] ?: 'images/News.jpg';
                 if ($n['image'] && !preg_match('/^(http|images\/)/i', $n['image'])) $newsImgUrl = 'images/' . $n['image'];
                 ?>
                 <div class="news-image" style="background-image: url('<?= htmlspecialchars($newsImgUrl) ?>');">
                     <div class="news-content">
                         <?php
+                            // Ассоциативный массив для вывода месяцев на русском языке
                             $months = [
                                 1 => 'января', 2 => 'февраля', 3 => 'марта', 4 => 'апреля',
                                 5 => 'мая', 6 => 'июня', 7 => 'июля', 8 => 'августа',
                                 9 => 'сентября', 10 => 'октября', 11 => 'ноября', 12 => 'декабря'
                             ];
+                            // Преобразуем строку даты из БД (например, 2026-05-21) в Unix Timestamp (секунды)
                             $timestamp = strtotime($n['pub_date']);
+                            // Форматируем дату: день (j), название месяца из массива, и год (Y)
                             $ru_date = date('j', $timestamp) . ' ' . $months[(int)date('n', $timestamp)] . ' ' . date('Y', $timestamp);
                         ?>
                         <div class="news-date"><?= $ru_date ?></div>
+                        
+                        <!-- Выводим заголовок новости, обрезая его до 80 символов через mb_strimwidth с добавлением троеточия, чтобы верстка не ехала -->
                         <h3 class="news-title"><?= htmlspecialchars(mb_strimwidth($n['title'], 0, 80, "...")) ?></h3>
+                        
+                        <!-- То же самое делаем с кратким анонсом (обрезка до 150 символов) -->
                         <?php if ($n['excerpt']): ?><p class="news-excerpt"><?= htmlspecialchars(mb_strimwidth($n['excerpt'], 0, 150, "...")) ?></p><?php endif; ?>
                     </div>
                 </div>
