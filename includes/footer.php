@@ -101,22 +101,59 @@
             }
         });
         
-        // Закрытие меню при клике на ссылку
+        // Закрытие меню при клике на ссылку и поддержка тач-устройств для выпадающего меню
         const navLinks = document.querySelectorAll('.nav-link');
+        const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+        
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Если ширина окна для мобильного меню и это выпадающий список
-                if (window.innerWidth <= 992 && this.parentElement.classList.contains('dropdown')) {
-                    e.preventDefault(); // Предотвращаем переход по ссылке
-                    e.stopPropagation(); // Блокируем скрипт плавного перехода, который повешен на document
-                    this.parentElement.classList.toggle('active');
-                    return; // Не закрываем всё меню
+                const parent = this.parentElement;
+
+                // Если ширина окна для мобильного меню (бургер-меню)
+                if (window.innerWidth <= 992) {
+                    if (parent.classList.contains('dropdown')) {
+                        e.preventDefault(); // Предотвращаем переход по ссылке
+                        e.stopPropagation(); // Блокируем скрипт плавного перехода
+                        parent.classList.toggle('active');
+                        return; // Не закрываем всё меню
+                    }
+                } 
+                // Десктопный режим на тач-устройствах (например, iPad Pro)
+                else if (isTouchDevice && parent.classList.contains('dropdown')) {
+                    if (!parent.classList.contains('touch-active')) {
+                        e.preventDefault(); // Предотвращаем немедленный переход
+                        e.stopPropagation();
+                        
+                        // Закрываем другие открытые списки
+                        dropdowns.forEach(d => {
+                            if (d !== parent) d.classList.remove('touch-active');
+                        });
+                        
+                        parent.classList.add('touch-active');
+                        return;
+                    } else {
+                        // При повторном клике скрываем выпадающий список
+                        e.preventDefault();
+                        e.stopPropagation();
+                        parent.classList.remove('touch-active');
+                        return;
+                    }
                 }
 
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
             });
+        });
+
+        // Закрытие выпадающих списков при клике вне меню на тач-устройствах
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                dropdowns.forEach(d => {
+                    d.classList.remove('touch-active');
+                });
+            }
         });
     });
     </script>
