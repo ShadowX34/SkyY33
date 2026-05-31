@@ -29,7 +29,9 @@ if (!empty($_FILES['image']['name'])) {
         header('Location: news.php?msg=error'); exit;
     }
     $filename = 'news_' . uniqid() . '.' . $ext;
-    move_uploaded_file($_FILES['image']['tmp_name'], '../images/' . $filename);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], '../images/' . $filename)) {
+        @chmod('../images/' . $filename, 0644); // Обеспечиваем права доступа 0644 (чтение для всех)
+    }
     $image = 'images/' . $filename;
 } elseif ($id === 0) {
     header('Location: news.php?msg=error'); exit;

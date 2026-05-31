@@ -27,7 +27,9 @@ if (!empty($_FILES['image']['name'])) {
         header('Location: reviews.php?msg=error'); exit;
     }
     $filename = 'review_' . uniqid() . '.' . $ext;
-    move_uploaded_file($_FILES['image']['tmp_name'], '../images/reviews/' . $filename);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], '../images/reviews/' . $filename)) {
+        @chmod('../images/reviews/' . $filename, 0644); // Обеспечиваем права доступа 0644 (чтение для всех)
+    }
     $image = $filename;
 } elseif ($id === 0) {
     header('Location: reviews.php?msg=error'); exit;

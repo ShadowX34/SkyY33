@@ -19,6 +19,7 @@ foreach ($_FILES['images']['tmp_name'] as $i => $tmp) {
 
     $filename = 'gallery_' . uniqid() . '.' . $ext;
     if (move_uploaded_file($tmp, '../images/gallery/' . $filename)) {
+        @chmod('../images/gallery/' . $filename, 0644); // Обеспечиваем права доступа 0644 (чтение для всех)
         $pdo->prepare("INSERT INTO gallery_photos (filename) VALUES (?)")->execute([$filename]);
         $uploaded++;
     }

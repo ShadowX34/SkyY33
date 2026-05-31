@@ -1,7 +1,28 @@
 <?php
 require 'includes/db_connect.php';
+
+// Получаем список загруженных через админку фото
 $adminPhotos = $pdo->query("SELECT filename FROM gallery_photos ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
-$adminPhotosJson = json_encode(array_values($adminPhotos), JSON_UNESCAPED_UNICODE);
+
+$allPhotos = [];
+
+// Фильтруем и добавляем админские фотографии, только если они реально существуют на диске
+foreach ($adminPhotos as $photo) {
+    $path = 'images/gallery/' . $photo;
+    if (file_exists($path)) {
+        $allPhotos[] = $path;
+    }
+}
+
+// Добавляем первые 24 статичные фотографии по умолчанию, только если они реально существуют на диске
+for ($i = 1; $i <= 24; $i++) {
+    $path = "images/gallery/{$i}.jpg";
+    if (file_exists($path)) {
+        $allPhotos[] = $path;
+    }
+}
+
+$photosJson = json_encode(array_values($allPhotos), JSON_UNESCAPED_UNICODE);
 ?>
 <?php
 $pageCss = 'gallery.css';
@@ -32,82 +53,82 @@ require_once 'includes/header.php';
 
 
         <!-- Ряд 1 -->
-        <div class="video-grid">
+        <div class="video-grid" style="width: 100%;">
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <a href="https://www.youtube.com/watch?v=ZKb-3bqPpvQ" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/ZKb-3bqPpvQ/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=ZKb-3bqPpvQ" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/ZKb-3bqPpvQ/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <a href="https://www.youtube.com/watch?v=G4-eBddF4Xo" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/G4-eBddF4Xo/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=G4-eBddF4Xo" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/G4-eBddF4Xo/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <a href="https://www.youtube.com/watch?v=N6MBwWyoxs4" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/N6MBwWyoxs4/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=N6MBwWyoxs4" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/N6MBwWyoxs4/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
         </div>
 
         <!-- Ряд 2 -->
-        <div class="video-grid" style="margin-top:30px;">
+        <div class="video-grid" style="margin-top:30px; width: 100%;">
             <div class="video-card">
                 <div class="video-year">2022</div>
-                <a href="https://www.youtube.com/watch?v=pE1s0u3yS2A" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/pE1s0u3yS2A/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=pE1s0u3yS2A" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/pE1s0u3yS2A/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <a href="https://www.youtube.com/watch?v=Iuxp6tCWA6A" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/Iuxp6tCWA6A/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=Iuxp6tCWA6A" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/Iuxp6tCWA6A/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <a href="https://www.youtube.com/watch?v=-3lxkTTXc1Q" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/-3lxkTTXc1Q/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=-3lxkTTXc1Q" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/-3lxkTTXc1Q/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
         </div>
 
         <!-- Ряд 3 -->
-        <div class="video-grid" style="margin-top:30px;">
+        <div class="video-grid" style="margin-top:30px; width: 100%;">
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <a href="https://www.youtube.com/watch?v=sXaws0VfiwM" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/sXaws0VfiwM/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=sXaws0VfiwM" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/sXaws0VfiwM/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2021</div>
-                <a href="https://www.youtube.com/watch?v=OJiq3GQcbZQ" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/OJiq3GQcbZQ/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=OJiq3GQcbZQ" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/OJiq3GQcbZQ/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2020</div>
-                <a href="https://www.youtube.com/watch?v=jnwGj5PE_b8" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/jnwGj5PE_b8/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=jnwGj5PE_b8" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/jnwGj5PE_b8/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
         </div>
 
         <!-- Ряд 4 -->
-        <div class="video-grid" style="margin-top:30px;">
+        <div class="video-grid" style="margin-top:30px; width: 100%;">
             <div class="video-card">
                 <div class="video-year">2020</div>
-                <a href="https://www.youtube.com/watch?v=Fn3rI7Tnr4U" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/Fn3rI7Tnr4U/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=Fn3rI7Tnr4U" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/Fn3rI7Tnr4U/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
             <div class="video-card">
                 <div class="video-year">2019</div>
-                <a href="https://www.youtube.com/watch?v=PnB6G9mAqDs" target="_blank" class="video-wrapper link-mode" style="background-image: url('https://img.youtube.com/vi/PnB6G9mAqDs/hqdefault.jpg');">
+                <a href="https://www.youtube.com/watch?v=PnB6G9mAqDs" target="_blank" class="video-wrapper link-mode" style="width: 100%; background-image: url('https://img.youtube.com/vi/PnB6G9mAqDs/hqdefault.jpg');">
                     <div class="play-btn-overlay"><i class="fab fa-youtube"></i></div>
                 </a>
             </div>
@@ -132,16 +153,9 @@ require_once 'includes/header.php';
 
     const PHOTOS_PER_PAGE_DEFAULT = 24; // 6 рядов × 4
 
-    const PHOTOS = [];
+    const PHOTOS = <?= $photosJson ?>;
 
-    for (let i = 1; i <= 328; i++) {
-        PHOTOS.push(`images/gallery/${i}.jpg`);
-    }
-    // Admin-uploaded photos
-    const adminPhotos = <?= $adminPhotosJson ?>;
-    adminPhotos.forEach(f => PHOTOS.push(`images/gallery/${f}`));
-
-    const TOTAL_PAGES = Math.ceil(PHOTOS.length / PHOTOS_PER_PAGE_DEFAULT);
+    const TOTAL_PAGES = Math.max(1, Math.ceil(PHOTOS.length / PHOTOS_PER_PAGE_DEFAULT));
 
     // ЛОГИКА ПАГИНАЦИИ
 
@@ -173,7 +187,9 @@ require_once 'includes/header.php';
                 item.innerHTML = `<img src="${src}" alt="Фото ${idx + 1}" loading="lazy">`;
                 item.querySelector('img').addEventListener('click', () => openLightbox(idx));
             };
-            img.onerror = () => { /* placeholder остаётся */ };
+            img.onerror = () => {
+                item.remove(); // В случае непредвиденной ошибки загрузки просто удаляем пустой квадрат с экрана
+            };
             img.src = src;
 
             item.addEventListener('click', () => openLightbox(idx));

@@ -53,7 +53,7 @@ $recentOrders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC L
             </div>
             <div class="stat-card">
                 <div class="stat-icon blue"><i class="fas fa-images"></i></div>
-                <div class="stat-info"><h3>328+<?= $gallery ?></h3><p>Фото в галерее</p></div>
+                <div class="stat-info"><h3><?= 24 + $gallery ?></h3><p>Фото в галерее</p></div>
             </div>
         </div>
 

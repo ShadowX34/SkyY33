@@ -107,8 +107,8 @@ header {
     margin: 0;
 }
 
-.dropdown:hover .dropdown-child,
-.dropdown.touch-active .dropdown-child {
+.dropdown.touch-active .dropdown-child,
+.dropdown.active .dropdown-child {
     display: block;
     animation: fadeIn 0.3s ease;
 }
@@ -139,9 +139,19 @@ header {
     transition: var(--transition);
 }
 
-.dropdown:hover .drop-icon,
-.dropdown.touch-active .drop-icon {
+.dropdown.touch-active .drop-icon,
+.dropdown.active .drop-icon {
     transform: rotate(180deg);
+}
+
+@media (min-width: 993px) {
+    .dropdown:hover .dropdown-child {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    .dropdown:hover .drop-icon {
+        transform: rotate(180deg);
+    }
 }
 
 @keyframes fadeIn {
@@ -290,11 +300,13 @@ header {
         align-items: center;
         justify-content: flex-start;
         padding-top: 30px;
+        padding-bottom: 60px;
         transform: translateX(-100%);
         opacity: 0;
         transition: transform 0.4s ease, opacity 0.3s ease;
         z-index: 999;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .logo-container { gap: 0; }

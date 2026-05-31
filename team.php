@@ -11,13 +11,13 @@ require_once 'includes/header.php';
     <div class="team-section">
         <h2 class="section-title">Руководство / Администрация</h2>
         <div class="team-grid grid-2">
-            <div class="team-member" data-src="images/Team/1.png">
-                <img src="images/Team/1.png" alt="Руководитель 1" class="member-photo">
+            <div class="team-member" data-src="images/team/1.png">
+                <img src="images/team/1.png" alt="Руководитель 1" class="member-photo">
                 <h3 class="member-name">Вячеслав Трынов</h3>
                 <p class="member-role">Начальник аэроклуба</p>
             </div>
-            <div class="team-member" data-src="images/Team/2.png">
-                <img src="images/Team/2.png" alt="Руководитель 2" class="member-photo">
+            <div class="team-member" data-src="images/team/2.png">
+                <img src="images/team/2.png" alt="Руководитель 2" class="member-photo">
                 <h3 class="member-name">Роман Сидоров</h3>
                 <p class="member-role">Главный администратор</p>
             </div>
@@ -27,28 +27,28 @@ require_once 'includes/header.php';
     <div class="team-section">
         <h2 class="section-title">Тандем-инструкторы / Операторы</h2>
         <div class="team-grid grid-5">
-            <div class="team-member" data-src="images/Team/3.png">
-                <img src="images/Team/3.png" alt="Инструктор 1" class="member-photo">
+            <div class="team-member" data-src="images/team/3.png">
+                <img src="images/team/3.png" alt="Инструктор 1" class="member-photo">
                 <h3 class="member-name">Дмитрий Пудов</h3>
                 <p class="member-role">Тандем-инструктор</p>
             </div>
-            <div class="team-member" data-src="images/Team/4.png">
-                <img src="images/Team/4.png" alt="Инструктор 2" class="member-photo">
+            <div class="team-member" data-src="images/team/4.png">
+                <img src="images/team/4.png" alt="Инструктор 2" class="member-photo">
                 <h3 class="member-name">Дмитрий Овчаренко</h3>
                 <p class="member-role">Тандем-инструктор</p>
             </div>
-            <div class="team-member" data-src="images/Team/5.png">
-                <img src="images/Team/5.png" alt="Инструктор 3" class="member-photo">
+            <div class="team-member" data-src="images/team/5.png">
+                <img src="images/team/5.png" alt="Инструктор 3" class="member-photo">
                 <h3 class="member-name">Олег Кудашев</h3>
                 <p class="member-role">Воздушный оператор</p>
             </div>
-            <div class="team-member" data-src="images/Team/6.png">
-                <img src="images/Team/6.png" alt="Инструктор 4" class="member-photo">
+            <div class="team-member" data-src="images/team/6.png">
+                <img src="images/team/6.png" alt="Инструктор 4" class="member-photo">
                 <h3 class="member-name">Денис Токарев</h3>
                 <p class="member-role">Тандем-инструктор</p>
             </div>
-            <div class="team-member" data-src="images/Team/7.png">
-                <img src="images/Team/7.png" alt="Инструктор 5" class="member-photo">
+            <div class="team-member" data-src="images/team/7.png">
+                <img src="images/team/7.png" alt="Инструктор 5" class="member-photo">
                 <h3 class="member-name">Арсений Ушаков</h3>
                 <p class="member-role">Воздушный оператор</p>
             </div>
@@ -58,8 +58,8 @@ require_once 'includes/header.php';
     <div class="team-section">
         <h2 class="section-title">Инструкторы по подготовке к первому прыжку</h2>
         <div class="team-grid grid-1">
-            <div class="team-member" data-src="images/Team/8.png">
-                <img src="images/Team/8.png" alt="Инструктор" class="member-photo">
+            <div class="team-member" data-src="images/team/8.png">
+                <img src="images/team/8.png" alt="Инструктор" class="member-photo">
                 <h3 class="member-name">Роман Герасимов</h3>
                 <p class="member-role">Старший инструктор ПДП</p>
             </div>

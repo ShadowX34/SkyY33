@@ -191,3 +191,47 @@ body {
          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ ТЕКСТОВЫХ СТРАНИЦ (ОФЕРТА, КОНФИДЕНЦИАЛЬНОСТЬ) ===== */
+.about-container {
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+/* Перенос длинных ссылок и email адресов */
+.about-container a {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    .about-page {
+        margin-top: 80px !important;
+        padding: 20px 10px !important;
+    }
+    
+    .about-container {
+        padding: 25px 15px !important; /* Уменьшаем гигантские 50px отступы на мобильных */
+        border-radius: 10px !important;
+    }
+    
+    .about-container h1.page-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 25px !important;
+    }
+    
+    .about-container h2 {
+        font-size: 1.2rem !important;
+    }
+    
+    .about-container ul {
+        padding-left: 15px !important;
+    }
+    
+    /* Блок реквизитов */
+    .about-container div[style*="padding: 25px 30px"] {
+        padding: 15px 15px !important;
+    }
+}

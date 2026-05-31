@@ -116,27 +116,49 @@
                         e.preventDefault(); // Предотвращаем переход по ссылке
                         e.stopPropagation(); // Блокируем скрипт плавного перехода
                         parent.classList.toggle('active');
+                        
+                        const child = parent.querySelector('.dropdown-child');
+                        const icon = parent.querySelector('.drop-icon');
+                        if (parent.classList.contains('active')) {
+                            if (child) child.style.setProperty('display', 'block', 'important');
+                            if (icon) icon.style.transform = 'rotate(180deg)';
+                        } else {
+                            if (child) child.style.setProperty('display', 'none', 'important');
+                            if (icon) icon.style.transform = '';
+                        }
                         return; // Не закрываем всё меню
                     }
                 } 
                 // Десктопный режим на тач-устройствах (например, iPad Pro)
                 else if (isTouchDevice && parent.classList.contains('dropdown')) {
+                    const child = parent.querySelector('.dropdown-child');
+                    const icon = parent.querySelector('.drop-icon');
                     if (!parent.classList.contains('touch-active')) {
                         e.preventDefault(); // Предотвращаем немедленный переход
                         e.stopPropagation();
                         
                         // Закрываем другие открытые списки
                         dropdowns.forEach(d => {
-                            if (d !== parent) d.classList.remove('touch-active');
+                            if (d !== parent) {
+                                d.classList.remove('touch-active');
+                                const c = d.querySelector('.dropdown-child');
+                                const ic = d.querySelector('.drop-icon');
+                                if (c) c.style.display = '';
+                                if (ic) ic.style.transform = '';
+                            }
                         });
                         
                         parent.classList.add('touch-active');
+                        if (child) child.style.setProperty('display', 'block', 'important');
+                        if (icon) icon.style.transform = 'rotate(180deg)';
                         return;
                     } else {
                         // При повторном клике скрываем выпадающий список
                         e.preventDefault();
                         e.stopPropagation();
                         parent.classList.remove('touch-active');
+                        if (child) child.style.display = '';
+                        if (icon) icon.style.transform = '';
                         return;
                     }
                 }
@@ -152,6 +174,10 @@
             if (!e.target.closest('.dropdown')) {
                 dropdowns.forEach(d => {
                     d.classList.remove('touch-active');
+                    const c = d.querySelector('.dropdown-child');
+                    const ic = d.querySelector('.drop-icon');
+                    if (c) c.style.display = '';
+                    if (ic) ic.style.transform = '';
                 });
             }
         });

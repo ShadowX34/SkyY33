@@ -14,11 +14,11 @@
     
     <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Владимирский АСК ДОСААФ России - Прыжки с парашютом' ?></title>
     <?php if(isset($pageCss)): ?>
-    <link rel="stylesheet" href="css/<?= htmlspecialchars($pageCss) ?>?v=14.0">
+    <link rel="stylesheet" href="css/<?= htmlspecialchars($pageCss) ?>?v=16.0">
     <?php else: ?>
-    <link rel="stylesheet" href="css/index.css?v=14.0">
+    <link rel="stylesheet" href="css/index.css?v=16.0">
     <?php endif; ?>
-    <link rel="stylesheet" href="css/global.css?v=14.0">
+    <link rel="stylesheet" href="css/global.css?v=16.0">
     <!-- Для виджета погоды на главной -->
     <link rel="stylesheet" href="css/instruments.css?v=1.0"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
