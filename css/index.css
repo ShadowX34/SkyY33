@@ -223,6 +223,8 @@
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 15px;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .service-title::after {
@@ -720,6 +722,7 @@
     .hero-buttons { justify-content: center; }
     .hero-title { font-size: 2.8rem; }
     .hero-subtitle { font-size: 1.5rem; }
+    .services-section { padding: 60px 15px; }
     .services-grid { grid-template-columns: 1fr; }
     .news-grid { grid-template-columns: 1fr; }
     .about-section { padding: 60px 5%; }
@@ -735,4 +738,5 @@
     .hero-btn { width: 100%; box-sizing: border-box; }
     .all-news-btn { width: 100%; box-sizing: border-box; }
     .about-btn { width: 100%; text-align: center; box-sizing: border-box; }
+    .service-title { font-size: 1.45rem; }
 }

@@ -21,6 +21,9 @@ body {
     text-align: center;
     position: relative;
     padding-bottom: 20px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .page-title::after {
@@ -44,7 +47,7 @@ body {
 
 .certificates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -289,4 +292,16 @@ body {
     margin: 0;
     font-weight: 600;
     color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.0rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.6rem;
+    }
 }
