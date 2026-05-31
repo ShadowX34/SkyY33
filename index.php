@@ -11,6 +11,33 @@ $stocks = $pdo->query("SELECT * FROM stocks WHERE is_active=1 ORDER BY sort_orde
 
 // SQL-запрос: загружаем последние 4 активные новости, отсортированные по дате публикации
 $news = $pdo->query("SELECT * FROM news WHERE is_active=1 ORDER BY pub_date DESC, id DESC LIMIT 4")->fetchAll(PDO::FETCH_ASSOC);
+
+// Загружаем цены сертификатов для блока "Наши услуги" на главной странице
+$certPrices = [];
+try {
+    $certPrices = $pdo->query("SELECT service_name, price FROM prices WHERE category='certificates' AND is_active=1")->fetchAll(PDO::FETCH_KEY_PAIR);
+} catch (PDOException $e) {
+    // В случае если таблицы нет в БД, используем резервные цены
+}
+
+// Функция для получения цены сертификата на главной с поддержкой вариаций названий
+function getCertPrice($name, $default) {
+    global $certPrices;
+    if (empty($certPrices)) return $default;
+    
+    $norm = mb_strtolower(trim($name));
+    
+    // Глубокая нормализация для исключения различий ("с" / "со", "ё" / "е", пробелы, дефисы)
+    $normDeep = str_replace([' ', '-', 'ё', 'сосъемкой', 'ссъемкой', 'съемка'], ['', '', 'е', 'съемкой', 'съемкой', 'съемкой'], $norm);
+    
+    foreach ($certPrices as $dbName => $price) {
+        $dbNorm = str_replace([' ', '-', 'ё', 'сосъемкой', 'ссъемкой', 'съемка'], ['', '', 'е', 'съемкой', 'съемкой', 'съемкой'], mb_strtolower($dbName));
+        if ($dbNorm === $normDeep) {
+            return $price;
+        }
+    }
+    return $default;
+}
 ?>
 
 
@@ -228,7 +255,7 @@ $fs = getFlightStatus();
                  <div class="service-image" style="background-image: url('images/б1.webp');"></div>
                 <div class="service-content">
                     <h3 class="service-title">Ознакомительный полёт</h3>
-                    <div class="service-price">4 000 ₽</div>
+                    <div class="service-price"><?= number_format(getCertPrice('Ознакомительный полет', 4000), 0, '.', ' ') ?> ₽</div>
                     <ul class="service-features">
                         <li>15-20 минут в воздухе с инструктором</li>
                         <li>Обзорная экскурсия по аэродрому</li>
@@ -243,7 +270,7 @@ $fs = getFlightStatus();
                 <div class="service-image" style="background-image: url('images/б2.webp');"></div>
                 <div class="service-content">
                     <h3 class="service-title">Самостоятельный прыжок</h3>
-                    <div class="service-price">8 500 ₽</div>
+                    <div class="service-price"><?= number_format(getCertPrice('Самостоятельный прыжок', 8500), 0, '.', ' ') ?> ₽</div>
                     <ul class="service-features">
                         <li>Прыжок с высоты 800-900 метров</li>
                         <li>Полная предварительная подготовка</li>
@@ -258,7 +285,7 @@ $fs = getFlightStatus();
                  <div class="service-image" style="background-image: url('images/б3.webp');"></div>
                 <div class="service-content">
                     <h3 class="service-title">Прыжок в тандеме с инструктором</h3>
-                    <div class="service-price">12 000 ₽</div>
+                    <div class="service-price"><?= number_format(getCertPrice('Прыжок в тандеме с инструктором', 12000), 0, '.', ' ') ?> ₽</div>
                     <ul class="service-features">
                         <li>Прыжок с высоты 4000 метров</li>
                         <li>50 секунд свободного падения</li>
@@ -273,7 +300,7 @@ $fs = getFlightStatus();
                  <div class="service-image" style="background-image: url('images/б4.webp');"></div>
                 <div class="service-content">
                     <h3 class="service-title">Прыжок в тандеме с оператором и GoPro</h3>
-                    <div class="service-price">16 500 ₽</div>
+                    <div class="service-price"><?= number_format(getCertPrice('Прыжок в тандеме с оператором и GoPro', 16500), 0, '.', ' ') ?> ₽</div>
                     <ul class="service-features">
                         <li>Прыжок с высоты 4000 метров</li>
                         <li>Профессиональная съёмка на GoPro</li>
@@ -288,7 +315,7 @@ $fs = getFlightStatus();
                  <div class="service-image" style="background-image: url('images/б5.webp');"></div>
                 <div class="service-content">
                     <h3 class="service-title">Прыжок в тандеме с фото-видеосъёмкой</h3>
-                    <div class="service-price">18 000 ₽</div>
+                    <div class="service-price"><?= number_format(getCertPrice('Прыжок в тандеме с фото-видеосъёмкой', 18000), 0, '.', ' ') ?> ₽</div>
                     <ul class="service-features">
                         <li>Прыжок с высоты 4000 метров</li>
                         <li>Профессиональная фото и видеосъёмка</li>
@@ -303,7 +330,7 @@ $fs = getFlightStatus();
                 <div class="service-image" style="background-image: url('images/б6.webp');"></div>
                 <div class="service-content">
                     <h3 class="service-title">Прыжок в тандеме со съёмкой на GoPro</h3>
-                    <div class="service-price">17 500 ₽</div>
+                    <div class="service-price"><?= number_format(getCertPrice('Прыжок в тандеме со съёмкой на GoPro', 17500), 0, '.', ' ') ?> ₽</div>
                     <ul class="service-features">
                         <li>Прыжок с высоты 4000 метров</li>
                         <li>Съёмка на камеру GoPro</li>

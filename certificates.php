@@ -1,6 +1,58 @@
 <?php
 $pageCss = 'certificates.css';
 require_once 'includes/header.php';
+require_once 'includes/db_connect.php';
+
+// Инициализируем резервный массив сертификатов по умолчанию (если в БД пусто)
+$certificates = [
+    [
+        'service_name' => 'ОЗНАКОМИТЕЛЬНЫЙ ПОЛЕТ',
+        'price' => 4000,
+        'description' => 'Никак не можешь решиться на прыжок с парашютом, а адреналина всё равно хочется? Тогда полёт на самолете - идеальный вариант для первого знакомства с небом!',
+        'image' => 'images/б1.webp'
+    ],
+    [
+        'service_name' => 'ПРЫЖОК В ТАНДЕМЕ С ИНСТРУКТОРОМ',
+        'price' => 12000,
+        'description' => 'Прыжок в тандеме с инструктором - это отличный способ познакомиться с небом, ощутить весь спектр эмоций от свободного падения и мягкого приземления под куполом парашюта.',
+        'image' => 'images/б2.webp'
+    ],
+    [
+        'service_name' => 'САМОСТОЯТЕЛЬНЫЙ ПРЫЖОК',
+        'price' => 8500,
+        'description' => 'Самостоятельный прыжок с парашютом - это отличный способ осуществить свою мечту, прикоснуться к небу и почувствовать себя настоящим парашютистом.',
+        'image' => 'images/б3.webp'
+    ],
+    [
+        'service_name' => 'ПРЫЖОК В ТАНДЕМЕ С ФОТО-ВИДЕОСЪЁМКОЙ',
+        'price' => 18000,
+        'description' => 'Запечатлейте свой прыжок на память! Профессиональная фото и видео съемка позволят вам переживать эти незабываемые моменты снова и снова.',
+        'image' => 'images/б4.webp'
+    ],
+    [
+        'service_name' => 'ПРЫЖОК В ТАНДЕМЕ С ОПЕРАТОРОМ И GOPRO',
+        'price' => 16500,
+        'description' => 'Экстремальная съемка вашего прыжка на камеру GoPro с разных ракурсов. Вы получите динамичное видео в высоком качестве, которым сможете поделиться с друзьями.',
+        'image' => 'images/б5.webp'
+    ],
+    [
+        'service_name' => 'ПРЫЖОК В ТАНДЕМЕ С СЪЁМКОЙ НА GOPRO',
+        'price' => 17500,
+        'description' => 'Давно мечтаете покорить воздушную стихию? Но никак не можете решиться на отчаянный шаг в «пропасть». Прыжок с оператором - это безопасно и незабываемо!',
+        'image' => 'images/б6.webp'
+    ]
+];
+
+try {
+    // Пробуем получить актуальные сертификаты из БД
+    $stmt = $pdo->query("SELECT * FROM prices WHERE category='certificates' AND is_active=1 ORDER BY sort_order ASC, id ASC");
+    $dbCertificates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (!empty($dbCertificates)) {
+        $certificates = $dbCertificates;
+    }
+} catch (PDOException $e) {
+    // В случае ошибки (например, если таблицы нет) используем статические резервные данные
+}
 ?>
 
     <!-- Подарочные сертификаты -->
@@ -13,89 +65,27 @@ require_once 'includes/header.php';
         </p>
         
         <div class="certificates-grid">
-            <!-- Сертификат 1 -->
+            <?php foreach ($certificates as $c): ?>
             <div class="certificate-card">
-                <div class="certificate-image" style="background-image: url('images/б1.webp');">
-                    <div class="certificate-price">4000₽</div>
+                <?php 
+                $imgUrl = $c['image'] ?: 'images/б1.webp';
+                // Если картинка указана и не содержит http или images/, приписываем префикс
+                if ($c['image'] && !preg_match('/^(http|images\/)/i', $c['image'])) $imgUrl = 'images/' . $c['image'];
+                ?>
+                <div class="certificate-image" style="background-image: url('<?= htmlspecialchars($imgUrl) ?>');">
+                    <div class="certificate-price"><?= number_format($c['price'], 0, '.', ' ') ?>₽</div>
                 </div>
                 <div class="certificate-content">
-                    <h2 class="certificate-title">ОЗНАКОМИТЕЛЬНЫЙ ПОЛЕТ</h2>
+                    <h2 class="certificate-title"><?= htmlspecialchars($c['service_name']) ?></h2>
                     <p class="certificate-description">
-                        Никак не можешь решиться на прыжок с парашютом, а адреналина всё равно хочется? Тогда полёт на самолете - идеальный вариант для первого знакомства с небом!
+                        <?= htmlspecialchars($c['description'] ?? '') ?>
                     </p>
-                    <button class="certificate-btn order-btn" data-certificate="ОЗНАКОМИТЕЛЬНЫЙ ПОЛЕТ" data-price="4000">Заказать</button>
+                    <button class="certificate-btn order-btn" 
+                            data-certificate="<?= htmlspecialchars($c['service_name']) ?>" 
+                            data-price="<?= number_format($c['price'], 0, '.', '') ?>">Заказать</button>
                 </div>
             </div>
-            
-            <!-- Сертификат 2 -->
-            <div class="certificate-card">
-                <div class="certificate-image" style="background-image: url('images/б2.webp');">
-                    <div class="certificate-price">12000₽</div>
-                </div>
-                <div class="certificate-content">
-                    <h2 class="certificate-title">ПРЫЖОК В ТАНДЕМЕ С ИНСТРУКТОРОМ</h2>
-                    <p class="certificate-description">
-                        Прыжок в тандеме с инструктором - это отличный способ познакомиться с небом, ощутить весь спектр эмоций от свободного падения и мягкого приземления под куполом парашюта.
-                    </p>
-                    <button class="certificate-btn order-btn" data-certificate="ПРЫЖОК В ТАНДЕМЕ С ИНСТРУКТОРОМ" data-price="12000">Заказать</button>
-                </div>
-            </div>
-            
-            <!-- Сертификат 3 -->
-            <div class="certificate-card">
-                <div class="certificate-image" style="background-image: url('images/б3.webp');">
-                    <div class="certificate-price">8500₽</div>
-                </div>
-                <div class="certificate-content">
-                    <h2 class="certificate-title">САМОСТОЯТЕЛЬНЫЙ ПРЫЖОК</h2>
-                    <p class="certificate-description">
-                        Самостоятельный прыжок с парашютом - это отличный способ осуществить свою мечту, прикоснуться к небу и почувствовать себя настоящим парашютистом.
-                    </p>
-                    <button class="certificate-btn order-btn" data-certificate="САМОСТОЯТЕЛЬНЫЙ ПРЫЖОК" data-price="8500">Заказать</button>
-                </div>
-            </div>
-            
-            <!-- Сертификат 4 -->
-            <div class="certificate-card">
-                <div class="certificate-image" style="background-image: url('images/б4.webp');">
-                    <div class="certificate-price">18000₽</div>
-                </div>
-                <div class="certificate-content">
-                    <h2 class="certificate-title">ПРЫЖОК В ТАНДЕМЕ С ФОТО-ВИДЕОСЪЁМКОЙ</h2>
-                    <p class="certificate-description">
-                        Запечатлейте свой прыжок на память! Профессиональная фото и видео съемка позволят вам переживать эти незабываемые моменты снова и снова.
-                    </p>
-                    <button class="certificate-btn order-btn" data-certificate="ПРЫЖОК В ТАНДЕМЕ С ФОТО-ВИДЕОСЪЁМКОЙ" data-price="18000">Заказать</button>
-                </div>
-            </div>
-            
-            <!-- Сертификат 5 -->
-            <div class="certificate-card">
-                <div class="certificate-image" style="background-image: url('images/б5.webp');">
-                    <div class="certificate-price">16500₽</div>
-                </div>
-                <div class="certificate-content">
-                    <h2 class="certificate-title">ПРЫЖОК В ТАНДЕМЕ С ОПЕРАТОРОМ И GOPRO</h2>
-                    <p class="certificate-description">
-                        Экстремальная съемка вашего прыжка на камеру GoPro с разных ракурсов. Вы получите динамичное видео в высоком качестве, которым сможете поделиться с друзьями.
-                    </p>
-                    <button class="certificate-btn order-btn" data-certificate="ПРЫЖОК В ТАНДЕМЕ С ОПЕРАТОРОМ И GOPRO" data-price="16500">Заказать</button>
-                </div>
-            </div>
-            
-            <!-- Сертификат 6 -->
-            <div class="certificate-card">
-                <div class="certificate-image" style="background-image: url('images/б6.webp');">
-                    <div class="certificate-price">17500₽</div>
-                </div>
-                <div class="certificate-content">
-                    <h2 class="certificate-title">ПРЫЖОК В ТАНДЕМЕ С СЪЁМКОЙ НА GOPRO</h2>
-                    <p class="certificate-description">
-                        Давно мечтаете покорить воздушную стихию? Но никак не можете решиться на отчаянный шаг в «пропасть». Прыжок с оператором - это безопасно и незабываемо!
-                    </p>
-                    <button class="certificate-btn order-btn" data-certificate="ПРЫЖОК В ТАНДЕМЕ С СЪЁМКОЙ НА GOPRO" data-price="17500">Заказать</button>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
         
         <!-- Дополнительная информация -->

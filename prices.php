@@ -1,6 +1,70 @@
 <?php
 $pageCss = 'prices.css';
 require_once 'includes/header.php';
+require_once 'includes/db_connect.php';
+
+// Инициализируем массивы по умолчанию (резервные копии на случай, если БД пуста или не мигрирована)
+$jumps = [
+    ['service_name' => 'Самостоятельный прыжок первый раз на круглом куполе', 'unit' => '1', 'price' => 6000],
+    ['service_name' => 'Прыжок с инструктором в тандеме*', 'unit' => '1', 'price' => 15500],
+    ['service_name' => 'Прыжок с инструктором в тандеме*(в будние дни)**', 'unit' => '1', 'price' => 15000],
+    ['service_name' => 'Прыжок с инструктором в тандеме с фото- и видеосъемкой*', 'unit' => '1', 'price' => 20000],
+    ['service_name' => 'Прыжок с инструктором в тандеме с фото- и видеосъемкой*(в будние дни)**', 'unit' => '1', 'price' => 19500],
+    ['service_name' => 'Прыжок с инструктором в тандеме с видеосъемкой GoPro*', 'unit' => '1', 'price' => 17500],
+    ['service_name' => 'Прыжок с инструктором в тандеме с видеосъемкой GoPro*(в будние дни)**', 'unit' => '1', 'price' => 17000],
+    ['service_name' => 'Ознакомительный полет на самолете Ан-2', 'unit' => '1', 'price' => 4000],
+    ['service_name' => 'Прыжок по второй программе', 'unit' => '1', 'price' => 4500],
+    ['service_name' => 'Повторный прыжок по второй программе в этот же день', 'unit' => '1', 'price' => 4000],
+    ['service_name' => 'Спортивный прыжок до 1500 метров', 'unit' => '1', 'price' => 2000],
+    ['service_name' => 'Спортивный прыжок выше 1500 метров', 'unit' => '1', 'price' => 2500],
+    ['service_name' => 'Прыжок с парашютом "Арбалет-2" на стабилизацию', 'unit' => '1', 'price' => 7000],
+];
+
+$rent = [
+    ['service_name' => 'Аренда парашютной системы (на 1 прыжок)', 'unit' => '1', 'price' => 700],
+    ['service_name' => 'Аренда комбинезона (на 1 день)', 'unit' => '1', 'price' => 300],
+    ['service_name' => 'Аренда высотомера (на 1 прыжок)', 'unit' => '1', 'price' => 150],
+    ['service_name' => 'Аренда высотомера (на 1 день)', 'unit' => '1', 'price' => 300],
+    ['service_name' => 'Аренда очков (на 1 день)', 'unit' => '1', 'price' => 100],
+];
+
+$rigger = [
+    ['service_name' => 'Укладка спортивной системы', 'unit' => '1', 'price' => 300],
+    ['service_name' => 'Укладка запасного купола', 'unit' => '1', 'price' => 3000],
+    ['service_name' => 'Укладка системы "Тандем"', 'unit' => '1', 'price' => 600],
+    ['service_name' => 'Укладка Д-10', 'unit' => '1', 'price' => 400],
+    ['service_name' => 'Укладка Д-1-5у', 'unit' => '1', 'price' => 400],
+    ['service_name' => 'Укладка 3-6П', 'unit' => '1', 'price' => 400],
+];
+
+try {
+    // Пытаемся получить актуальные цены из БД
+    $stmt = $pdo->query("SELECT * FROM prices WHERE is_active=1 ORDER BY sort_order ASC, id ASC");
+    $dbPrices = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (!empty($dbPrices)) {
+        $tempJumps = [];
+        $tempRent = [];
+        $tempRigger = [];
+        
+        foreach ($dbPrices as $p) {
+            if ($p['category'] === 'jumps') {
+                $tempJumps[] = $p;
+            } elseif ($p['category'] === 'rent') {
+                $tempRent[] = $p;
+            } elseif ($p['category'] === 'rigger') {
+                $tempRigger[] = $p;
+            }
+        }
+        
+        // Перезаписываем массивы только если они найдены в БД
+        if (!empty($tempJumps)) $jumps = $tempJumps;
+        if (!empty($tempRent)) $rent = $tempRent;
+        if (!empty($tempRigger)) $rigger = $tempRigger;
+    }
+} catch (PDOException $e) {
+    // В случае если таблицы еще нет, просто молча используем статические данные
+}
 ?>
 
 
@@ -22,84 +86,14 @@ require_once 'includes/header.php';
                 </tr>
             </thead>
             <tbody>
+                <?php $i = 1; foreach ($jumps as $p): ?>
                 <tr>
-                    <td>1</td>
-                    <td>Самостоятельный прыжок первый раз на круглом куполе</td>
-                    <td>1</td>
-                    <td class="price-highlight">6 000 ₽</td>
+                    <td><?= (stripos($p['service_name'], 'будние дни') !== false) ? '' : $i++ ?></td>
+                    <td><?= htmlspecialchars($p['service_name']) ?></td>
+                    <td><?= htmlspecialchars($p['unit'] ?? '1') ?></td>
+                    <td class="price-highlight"><?= number_format($p['price'], 0, '.', ' ') ?> ₽</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Прыжок с инструктором в тандеме*</td>
-                    <td>1</td>
-                    <td class="price-highlight">15 500 ₽</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Прыжок с инструктором в тандеме*(в будние дни)**</td>
-                    <td>1</td>
-                    <td class="price-highlight">15 000 ₽</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Прыжок с инструктором в тандеме с фото- и видеосъемкой*</td>
-                    <td>1</td>
-                    <td class="price-highlight">20 000 ₽</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Прыжок с инструктором в тандеме с фото- и видеосъемкой*(в будние дни)**</td>
-                    <td>1</td>
-                    <td class="price-highlight">19 500 ₽</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Прыжок с инструктором в тандеме с видеосъемкой GoPro*</td>
-                    <td>1</td>
-                    <td class="price-highlight">17 500 ₽</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Прыжок с инструктором в тандеме с видеосъемкой GoPro*(в будние дни)**</td>
-                    <td>1</td>
-                    <td class="price-highlight">17 000 ₽</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Ознакомительный полет на самолете Ан-2</td>
-                    <td>1</td>
-                    <td class="price-highlight">4 000 ₽</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Прыжок по второй программе</td>
-                    <td>1</td>
-                    <td class="price-highlight">4 500 ₽</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Повторный прыжок по второй программе в этот же день</td>
-                    <td>1</td>
-                    <td class="price-highlight">4 000 ₽</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Спортивный прыжок до 1500 метров</td>
-                    <td>1</td>
-                    <td class="price-highlight">2 000 ₽</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Спортивный прыжок выше 1500 метров</td>
-                    <td>1</td>
-                    <td class="price-highlight">2 500 ₽</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Прыжок с парашютом "Арбалет-2" на стабилизацию</td>
-                    <td>1</td>
-                    <td class="price-highlight">7 000 ₽</td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
         
@@ -121,36 +115,14 @@ require_once 'includes/header.php';
                 </tr>
             </thead>
             <tbody>
+                <?php $i = 1; foreach ($rent as $p): ?>
                 <tr>
-                    <td>1</td>
-                    <td>Аренда парашютной системы (на 1 прыжок)</td>
-                    <td>1</td>
-                    <td class="price-highlight">700 ₽</td>
+                    <td><?= $i++ ?></td>
+                    <td><?= htmlspecialchars($p['service_name']) ?></td>
+                    <td><?= htmlspecialchars($p['unit'] ?? '1') ?></td>
+                    <td class="price-highlight"><?= number_format($p['price'], 0, '.', ' ') ?> ₽</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Аренда комбинезона (на 1 день)</td>
-                    <td>1</td>
-                    <td class="price-highlight">300 ₽</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Аренда высотомера (на 1 прыжок)</td>
-                    <td>1</td>
-                    <td class="price-highlight">150 ₽</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Аренда высотомера (на 1 день)</td>
-                    <td>1</td>
-                    <td class="price-highlight">300 ₽</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Аренда очков (на 1 день)</td>
-                    <td>1</td>
-                    <td class="price-highlight">100 ₽</td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
@@ -166,42 +138,14 @@ require_once 'includes/header.php';
         </tr>
     </thead>
     <tbody>
+        <?php $i = 1; foreach ($rigger as $p): ?>
         <tr>
-            <td>1</td>
-            <td>Укладка спортивной системы</td>
-            <td>1</td>
-            <td class="price-highlight">300 ₽</td>
+            <td><?= $i++ ?></td>
+            <td><?= htmlspecialchars($p['service_name']) ?></td>
+            <td><?= htmlspecialchars($p['unit'] ?? '1') ?></td>
+            <td class="price-highlight"><?= number_format($p['price'], 0, '.', ' ') ?> ₽</td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Укладка запасного купола</td>
-            <td>1</td>
-            <td class="price-highlight">3 000 ₽</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Укладка системы "Тандем"</td>
-            <td>1</td>
-            <td class="price-highlight">600 ₽</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Укладка Д-10</td>
-            <td>1</td>
-            <td class="price-highlight">400 ₽</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Укладка Д-1-5у</td>
-            <td>1</td>
-            <td class="price-highlight">400 ₽</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>Укладка 3-6П</td>
-            <td>1</td>
-            <td class="price-highlight">400 ₽</td>
-        </tr>
+        <?php endforeach; ?>
     </tbody>
 </table>
 

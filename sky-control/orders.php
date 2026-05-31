@@ -50,33 +50,35 @@ $orders = $pdo->query("SELECT * FROM certificate_orders ORDER BY id DESC")->fetc
         <?php endif; ?>
 
         <div class="card">
-            <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div class="card-header orders-header">
                 <h2>Все заказы (<?= count($orders) ?>)</h2>
                 
-                <div style="display:flex; gap: 10px; align-items:center; flex-grow:1; justify-content: flex-end; margin-right: 20px;">
-                    <select id="filterColumn" style="padding: 8px; border-radius: 6px; border: 1px solid #ddd; outline: none;">
-                        <option value="0">Все колонки</option>
-                        <option value="1">Клиент</option>
-                        <option value="2">Контакты</option>
-                        <option value="3">Сертификат</option>
-                        <option value="4">Цена</option>
-                        <option value="5">Комментарий</option>
-                        <option value="6">Дата</option>
-                        <option value="7">Статус</option>
-                    </select>
-                    <input type="text" id="filterInput" placeholder="Поиск..." style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; width: 250px;">
-                </div>
+                <div class="orders-actions">
+                    <div class="filter-group">
+                        <select id="filterColumn">
+                            <option value="0">Все колонки</option>
+                            <option value="1">Клиент</option>
+                            <option value="2">Контакты</option>
+                            <option value="3">Сертификат</option>
+                            <option value="4">Цена</option>
+                            <option value="5">Комментарий</option>
+                            <option value="6">Дата</option>
+                            <option value="7">Статус</option>
+                        </select>
+                        <input type="text" id="filterInput" placeholder="Поиск...">
+                    </div>
 
-                <?php if (count($orders) > 0): ?>
-                <form method="post" onsubmit="return confirm('Удалить все обработанные заказы?')" style="margin-left: auto;">
-                    <button name="delete_processed" class="btn btn-sm btn-danger" style="background:#dc3545;color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">
-                        <i class="fas fa-broom"></i> Очистить обработанные
-                    </button>
-                </form>
-                <?php endif; ?>
+                    <?php if (count($orders) > 0): ?>
+                    <form method="post" onsubmit="return confirm('Удалить все обработанные заказы?')">
+                        <button name="delete_processed" class="btn btn-sm btn-danger">
+                            <i class="fas fa-broom"></i> <span class="btn-text">Очистить обработанные</span>
+                        </button>
+                    </form>
+                    <?php endif; ?>
+                </div>
             </div>
             <div class="card-body" style="padding:0;overflow-x:auto">
-                <table>
+                <table class="orders-table">
                     <thead>
                         <tr>
                             <th>#</th><th>Клиент</th><th>Контакты</th>
