@@ -53,7 +53,7 @@
                 <div class="footer-contact-item">
                     <i class="fas fa-envelope footer-contact-icon"></i>
                     <div class="footer-contact-text">
-                        <a href="mailto:info@ask-dosaaf.ru">info@ask-dosaaf.ru</a>
+                        <a href="mailto:vlad-skyclub@yandex.ru">vlad-skyclub@yandex.ru</a>
                     </div>
                 </div>
                 <div class="footer-contact-item">
@@ -75,7 +75,7 @@
         </div>
         
         <div class="footer-bottom">
-            Негосударственное образовательное учреждение «Владимирский авиационно-спортивный клуб ДОСААФ России»
+            ООО «АСК ДОСААФ РОССИИ»
             &nbsp;|&nbsp;
             <a href="privacy.php" style="color: inherit; text-decoration: underline; opacity: 0.75; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">Политика конфиденциальности</a>
             &nbsp;|&nbsp;

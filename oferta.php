@@ -1,6 +1,6 @@
 <?php
 $pageCss = 'about.css';
-$pageTitle = 'Публичная оферта - Владимирский АСК ДОСААФ РОССИИ';
+$pageTitle = 'Публичная оферта - ООО "АСК ДОСААФ РОССИИ"';
 require_once 'includes/header.php';
 ?>
 
@@ -11,18 +11,18 @@ require_once 'includes/header.php';
         <h1 class="page-title" style="margin-top:0; font-size: 2.2rem; color: #1a5a9e; margin-bottom: 10px;">Публичная оферта</h1>
         <p style="margin-bottom: 40px; color: #888; font-size: 0.95rem;">Договор публичной оферты об оказании услуг</p>
 
-        <p style="margin-bottom: 30px;">НОУ «Владимирский АСК ДОСААФ России» (далее — Исполнитель) предлагает договор публичной оферты для физических и юридических лиц (далее — Заказчик) о нижеследующем.</p>
+        <p style="margin-bottom: 30px;">ООО «АСК ДОСААФ РОССИИ» (далее — Исполнитель) предлагает договор публичной оферты для физических и юридических лиц (далее — Заказчик) о нижеследующем.</p>
 
         <!-- 1. Термины и определения -->
         <div style="margin-bottom: 40px;">
             <h2 style="color: #216dbd; font-size: 1.4rem; margin: 0 0 15px;">1. Термины и определения</h2>
             <ul style="padding-left: 20px; list-style: none;">
-                <li style="margin-bottom: 12px;"><strong>1.1. Оферта</strong> — документ «Договор публичной оферты об оказании услуг», опубликованный на сайте Исполнителя <a href="http://www.vlad-sky.ru/" style="color: #216dbd; text-decoration: underline;">http://www.vlad-sky.ru/</a>.</li>
+                <li style="margin-bottom: 12px;"><strong>1.1. Оферта</strong> — документ «Договор публичной оферты об оказании услуг», опубликованный на сайте Исполнителя <a href="http://sky33.gt.tc/" style="color: #216dbd; text-decoration: underline;">http://sky33.gt.tc/</a>.</li>
                 <li style="margin-bottom: 12px;"><strong>1.2. Договор Оферты</strong> — договор между Исполнителем и Заказчиком об оказании услуг, который заключается через Акцепт Оферты.</li>
-                <li style="margin-bottom: 12px;"><strong>1.3. Акцепт Оферты</strong> — принятие Оферты Заказчиком, когда он обращается к Исполнителю за оказанием услуг. Акцептом Оферты считается нажатие Заказчиком кнопки «Оплатить» под сформированным заказом на сайте <a href="http://www.vlad-sky.ru/" style="color: #216dbd; text-decoration: underline;">http://www.vlad-sky.ru/</a>.</li>
-                <li style="margin-bottom: 12px;"><strong>1.4. Тарифы</strong> — перечень услуг Исполнителя с ценами, указанными в Прайс-листе на сайте <a href="http://www.vlad-sky.ru/" style="color: #216dbd; text-decoration: underline;">http://www.vlad-sky.ru/</a>.</li>
+                <li style="margin-bottom: 12px;"><strong>1.3. Акцепт Оферты</strong> — принятие Оферты Заказчиком, когда он обращается к Исполнителю за оказанием услуг. Акцептом Оферты считается нажатие Заказчиком кнопки «Оплатить» под сформированным заказом на сайте <a href="http://sky33.gt.tc/" style="color: #216dbd; text-decoration: underline;">http://sky33.gt.tc/</a>.</li>
+                <li style="margin-bottom: 12px;"><strong>1.4. Тарифы</strong> — перечень услуг Исполнителя с ценами, указанными в Прайс-листе на сайте <a href="http://sky33.gt.tc/" style="color: #216dbd; text-decoration: underline;">http://sky33.gt.tc/</a>.</li>
                 <li style="margin-bottom: 12px;"><strong>1.5. Заказчик</strong> — лицо, совершившее Акцепт Оферты.</li>
-                <li style="margin-bottom: 12px;"><strong>1.6. Исполнитель</strong> — НОУ «Владимирский АСК ДОСААФ России».</li>
+                <li style="margin-bottom: 12px;"><strong>1.6. Исполнитель</strong> — ООО «АСК ДОСААФ РОССИИ».</li>
                 <li style="margin-bottom: 12px;"><strong>1.7.</strong> Договор не требует скрепления печатями и/или подписания Заказчиком и Исполнителем.</li>
             </ul>
         </div>
@@ -30,7 +30,7 @@ require_once 'includes/header.php';
         <!-- 2. Предмет Договора -->
         <div style="margin-bottom: 40px;">
             <h2 style="color: #216dbd; font-size: 1.4rem; margin: 0 0 15px;">2. Предмет Договора</h2>
-            <p style="margin-bottom: 12px;"><strong>2.1.</strong> Исполнитель оказывает Заказчику услуги в соответствии с условиями Договора Оферты и текущими Тарифами, опубликованными на сайте <a href="http://www.vlad-sky.ru/" style="color: #216dbd; text-decoration: underline;">http://www.vlad-sky.ru/</a>.</p>
+            <p style="margin-bottom: 12px;"><strong>2.1.</strong> Исполнитель оказывает Заказчику услуги в соответствии с условиями Договора Оферты и текущими Тарифами, опубликованными на сайте <a href="http://sky33.gt.tc/" style="color: #216dbd; text-decoration: underline;">http://sky33.gt.tc/</a>.</p>
             <p style="margin-bottom: 12px;"><strong>2.2.</strong> Заказчик принимает услуги Исполнителя и полностью их оплачивает.</p>
             <p style="margin-bottom: 12px;"><strong>2.3.</strong> Если заказчик оставляет отзыв о приобретенных услугах в соцсетях Исполнителя или на его сайте, он дает согласие на размещение персональных данных в отзывах: имени и фамилии.</p>
             <p style="margin-bottom: 0;"><strong>2.4.</strong> Заказчик соглашается, что, совершая Акцепт Договора он подтверждает, что ознакомлен, согласен, полностью и безоговорочно принимает все условия Договора Оферты.</p>
@@ -45,8 +45,8 @@ require_once 'includes/header.php';
         <!-- 4. Стоимость -->
         <div style="margin-bottom: 40px;">
             <h2 style="color: #216dbd; font-size: 1.4rem; margin: 0 0 15px;">4. Стоимость работ и порядок расчётов</h2>
-            <p style="margin-bottom: 12px;"><strong>4.1.</strong> Стоимость услуг определяется в соответствии с действующими ценами и прописана на сайте <a href="http://www.vlad-sky.ru/" style="color: #216dbd; text-decoration: underline;">http://www.vlad-sky.ru/</a>.</p>
-            <p style="margin-bottom: 0;"><strong>4.2.</strong> Оплата производится в рублях перечислением на расчетный счет Исполнителя или платежной картой на сайте <a href="http://www.vlad-sky.ru/" style="color: #216dbd; text-decoration: underline;">http://www.vlad-sky.ru/</a>.</p>
+            <p style="margin-bottom: 12px;"><strong>4.1.</strong> Стоимость услуг определяется в соответствии с действующими ценами и прописана на сайте <a href="http://sky33.gt.tc/" style="color: #216dbd; text-decoration: underline;">http://sky33.gt.tc/</a>.</p>
+            <p style="margin-bottom: 0;"><strong>4.2.</strong> Оплата производится в рублях перечислением на расчетный счет Исполнителя или платежной картой на сайте <a href="http://sky33.gt.tc/" style="color: #216dbd; text-decoration: underline;">http://sky33.gt.tc/</a>.</p>
         </div>
 
         <!-- 5. Права и обязанности -->
@@ -90,7 +90,7 @@ require_once 'includes/header.php';
         <div style="margin-bottom: 0;">
             <h2 style="color: #216dbd; font-size: 1.4rem; margin: 0 0 15px;">8. Реквизиты</h2>
             <div style="background: #f7f9fc; border-left: 4px solid #216dbd; border-radius: 8px; padding: 25px 30px; line-height: 2;">
-                <p style="margin: 0 0 5px;"><strong>Исполнитель:</strong> НОУ «Владимирский АСК ДОСААФ России»</p>
+                <p style="margin: 0 0 5px;"><strong>Исполнитель:</strong> ООО «АСК ДОСААФ РОССИИ»</p>
                 <p style="margin: 0 0 5px;"><strong>Юр. адрес:</strong> г. Владимир, Территория Аэропорта, 4</p>
                 <p style="margin: 0 0 5px;"><strong>Почтовый адрес:</strong> г. Владимир, Территория Аэропорта, 4</p>
                 <p style="margin: 0 0 5px;"><strong>ИНН:</strong> 3327317812</p>

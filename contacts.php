@@ -68,7 +68,7 @@ require_once 'includes/header.php';
             <div class="contacts-section">
                 <h2>Реквизиты</h2>
                 <div class="contact-text">
-                    <p><strong>НОУ "Владимирский АСК ДОСААФ РОССИИ"</strong></p>
+                    <p><strong>ООО "АСК ДОСААФ РОССИИ"</strong></p>
                     <p>ИНН 3327317812</p>
                     <p>ОГРН 1033301809265</p>
                     <p><strong>Юридический адрес:</strong> 600022, г. Владимир, территория Аэропорта (Семязино), стр. 4
