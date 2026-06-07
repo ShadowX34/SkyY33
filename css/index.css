@@ -212,6 +212,16 @@
     position: relative;
 }
 
+/* Выравниваем картинку ознакомительного полета, чтобы самолет был виден */
+.services-grid .service-card:first-child .service-image {
+    background-position: center 35%;
+}
+
+/* Выравниваем картинку самостоятельного прыжка по нижнему краю, чтобы было видно парашютиста */
+.services-grid .service-card:nth-child(2) .service-image {
+    background-position: center 85%;
+}
+
 .service-content {
     padding: 30px;
 }
@@ -694,8 +704,12 @@
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1350px) {
     .hero-title { font-size: 4rem; }
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
     .news-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
