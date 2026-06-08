@@ -75,11 +75,11 @@
         </div>
         
         <div class="footer-bottom">
-            ООО «АСК ДОСААФ РОССИИ»
-            &nbsp;|&nbsp;
-            <a href="privacy.php" style="color: inherit; text-decoration: underline; opacity: 0.75; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">Политика конфиденциальности</a>
-            &nbsp;|&nbsp;
-            <a href="oferta.php" style="color: inherit; text-decoration: underline; opacity: 0.75; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">Публичная оферта</a>
+            <span>ООО «АСК ДОСААФ РОССИИ»</span>
+            <span class="footer-sep">&nbsp;|&nbsp;</span>
+            <a href="privacy.php" class="footer-bottom-link">Политика конфиденциальности</a>
+            <span class="footer-sep">&nbsp;|&nbsp;</span>
+            <a href="oferta.php" class="footer-bottom-link">Публичная оферта</a>
         </div>
     </footer>
 

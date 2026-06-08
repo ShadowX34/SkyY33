@@ -17,32 +17,32 @@ require_once 'includes/header.php';
 ?>
 
 <main class="news-page" style="min-height: 40vh; margin-top: 120px; position: relative; z-index: 10;">
-    <div class="news-container" style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
-        <div style="background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); padding: 40px;">
+    <div class="news-detail-container">
+        <div class="news-detail-card">
             <?php if ($news['image']): ?>
-            <div style="border-radius: 10px; overflow: hidden; margin-bottom: 30px;">
-                <img src="<?= htmlspecialchars($news['image']) ?>" alt="<?= htmlspecialchars($news['title']) ?>" style="width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block;">
+            <div class="news-detail-img-wrapper">
+                <img src="<?= htmlspecialchars($news['image']) ?>" alt="<?= htmlspecialchars($news['title']) ?>">
             </div>
             <?php endif; ?>
             
-            <h1 style="font-size: 2.2rem; color: #1a5a9e; margin-bottom: 20px; text-transform: uppercase; font-weight: 700;"><?= htmlspecialchars($news['title']) ?></h1>
+            <h1 class="news-detail-title"><?= htmlspecialchars($news['title']) ?></h1>
             
             <?php if ($news['pub_date']): 
                 $m = [1=>'января',2=>'февраля',3=>'марта',4=>'апреля',5=>'мая',6=>'июня',7=>'июля',8=>'августа',9=>'сентября',10=>'октября',11=>'ноября',12=>'декабря'];
                 $ts = strtotime($news['pub_date']);
             ?>
-                <div style="font-size: 1rem; color: #888; margin-bottom: 30px; font-weight: bold;">
+                <div class="news-detail-date">
                     <?= date('j', $ts) . ' ' . $m[(int)date('n', $ts)] . ' ' . date('Y', $ts) ?>
                 </div>
             <?php endif; ?>
             
             <?php if ($news['excerpt']): ?>
-                <div style="font-size: 1.15rem; line-height: 1.8; color: #444; margin-bottom: 40px;">
+                <div class="news-detail-content">
                     <?= nl2br(htmlspecialchars($news['excerpt'])) ?>
                 </div>
             <?php endif; ?>
             
-            <a href="news.php" style="display: inline-block; background-color: #216DBD; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">← Вернуться ко всем новостям</a>
+            <a href="news.php" class="news-detail-back-btn">← Вернуться ко всем новостям</a>
         </div>
     </div>
 </main>

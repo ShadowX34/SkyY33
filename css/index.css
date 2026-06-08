@@ -659,6 +659,9 @@
     margin-bottom: 12px;
     line-height: 1.35;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .news-excerpt {
