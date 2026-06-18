@@ -13,7 +13,24 @@ $category = trim($_POST['category'] ?? 'jumps');
 $unit = trim($_POST['unit'] ?? '1');
 $price = floatval($_POST['price'] ?? 0);
 $description = isset($_POST['description']) ? trim($_POST['description']) : null;
-$image = isset($_POST['image']) ? trim($_POST['image']) : null;
+$image = null;
+if (!empty($_FILES['image']['name'])) {
+    $allowed = ['jpg','jpeg','png','webp','gif'];
+    $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+    if (in_array($ext, $allowed) && getimagesize($_FILES['image']['tmp_name'])) {
+        $filename = 'cert_' . uniqid() . '.' . $ext;
+        if (move_uploaded_file($_FILES['image']['tmp_name'], '../images/' . $filename)) {
+            @chmod('../images/' . $filename, 0644);
+            $image = 'images/' . $filename;
+        } else {
+            header('Location: prices.php?msg=error');
+            exit;
+        }
+    } else {
+        header('Location: prices.php?msg=error');
+        exit;
+    }
+}
 
 if (empty($name) || $price < 0) {
     header('Location: prices.php?msg=error');

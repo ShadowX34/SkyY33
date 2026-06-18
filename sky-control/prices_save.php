@@ -14,6 +14,7 @@ try {
     
     // Подготавливаем запрос на обновление
     $stmt = $pdo->prepare("UPDATE prices SET service_name = ?, unit = ?, price = ?, description = ? WHERE id = ?");
+    $stmtImage = $pdo->prepare("UPDATE prices SET image = ? WHERE id = ?");
     
     foreach ($_POST['services'] as $id => $data) {
         $id = (int)$id;
@@ -28,6 +29,23 @@ try {
         }
         
         $stmt->execute([$name, $unit, $price, $description, $id]);
+
+        $fileKey = "image_" . $id;
+        if (!empty($_FILES[$fileKey]['name'])) {
+            $allowed = ['jpg','jpeg','png','webp','gif'];
+            $ext = strtolower(pathinfo($_FILES[$fileKey]['name'], PATHINFO_EXTENSION));
+            if (in_array($ext, $allowed) && getimagesize($_FILES[$fileKey]['tmp_name'])) {
+                $filename = 'cert_' . uniqid() . '.' . $ext;
+                if (move_uploaded_file($_FILES[$fileKey]['tmp_name'], '../images/' . $filename)) {
+                    @chmod('../images/' . $filename, 0644);
+                    $stmtImage->execute(['images/' . $filename, $id]);
+                } else {
+                    throw new Exception("Ошибка загрузки файла изображения для ID: " . $id);
+                }
+            } else {
+                throw new Exception("Недопустимый формат файла изображения для ID: " . $id);
+            }
+        }
     }
     
     // Подтверждаем транзакцию

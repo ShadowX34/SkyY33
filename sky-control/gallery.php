@@ -29,7 +29,8 @@ $allFiles = glob('../images/gallery/*.*') ?: [];
 $staticPhotos = [];
 foreach ($allFiles as $f) {
     $filename = basename($f);
-    if (!isset($dbFilenamesSet[$filename]) && in_array(strtolower(pathinfo($filename, PATHINFO_EXTENSION)), ['jpg','jpeg','png','webp'])) {
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    if (!isset($dbFilenamesSet[$filename]) && in_array($ext, ['jpg','jpeg','png','webp','mp4','webm','ogg','mov','avi'])) {
         $staticPhotos[] = $filename;
     }
 }
@@ -81,12 +82,12 @@ $staticCount = count($staticPhotos);
 
         <!-- Форма загрузки -->
         <div class="card">
-            <div class="card-header"><h2>Загрузить новые фотографии</h2></div>
+            <div class="card-header"><h2>Загрузить новые фото и видео</h2></div>
             <div class="card-body">
                 <form method="post" action="gallery_upload.php" enctype="multipart/form-data" style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
                     <div class="form-group" style="flex:1;min-width:250px">
-                        <label>Выберите изображения (jpg, jpeg, png, webp)</label>
-                        <input type="file" name="images[]" accept="image/*" multiple required>
+                        <label>Выберите изображения или видео (jpg, jpeg, png, webp, mp4, webm, ogg, mov, avi)</label>
+                        <input type="file" name="images[]" accept="image/*,video/*" multiple required>
                     </div>
                     <button type="submit" class="btn btn-success"><i class="fas fa-upload"></i> Загрузить</button>
                 </form>
@@ -116,15 +117,26 @@ $staticCount = count($staticPhotos);
             <!-- Загруженные через админку (из БД) -->
             <?php if ($uploaded): ?>
             <div class="card">
-                <div class="card-header"><h2>Фотографии из базы данных (<?= count($uploaded) ?>)</h2></div>
+                <div class="card-header"><h2>Медиафайлы из базы данных (<?= count($uploaded) ?>)</h2></div>
                 <div class="card-body">
                     <div class="gallery-grid">
                     <?php foreach ($uploaded as $p): ?>
-                        <?php $val = "db:" . $p['id'] . "|" . $p['filename']; ?>
+                        <?php 
+                        $val = "db:" . $p['id'] . "|" . $p['filename']; 
+                        $ext = strtolower(pathinfo($p['filename'], PATHINFO_EXTENSION));
+                        $isVideo = in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi']);
+                        ?>
                         <div class="gallery-item">
                             <input type="checkbox" name="selected_photos[]" class="photo-checkbox select-checkbox" value="<?= htmlspecialchars($val) ?>">
-                            <img src="../images/gallery/<?= htmlspecialchars($p['filename']) ?>" alt="" loading="lazy"
-                                 onerror="this.parentElement.style.background='#fee'">
+                            <?php if ($isVideo): ?>
+                                <video src="../images/gallery/<?= htmlspecialchars($p['filename']) ?>" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; background: rgba(0,0,0,0.6); padding: 8px 12px; border-radius: 50%; pointer-events: none; z-index: 5;">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            <?php else: ?>
+                                <img src="../images/gallery/<?= htmlspecialchars($p['filename']) ?>" alt="" loading="lazy"
+                                     onerror="this.parentElement.style.background='#fee'">
+                            <?php endif; ?>
                             <span class="filename"><?= htmlspecialchars($p['filename']) ?></span>
                             <button type="button" class="btn btn-sm btn-danger del-btn" onclick="deleteSinglePhoto('<?= htmlspecialchars($val) ?>')">
                                 <i class="fas fa-trash"></i>
@@ -135,21 +147,32 @@ $staticCount = count($staticPhotos);
                 </div>
             </div>
             <?php else: ?>
-            <div class="alert alert-info"><i class="fas fa-info-circle"></i> Загруженных через админку фото пока нет. Используйте форму выше.</div>
+            <div class="alert alert-info"><i class="fas fa-info-circle"></i> Загруженных файлов пока нет. Используйте форму выше.</div>
             <?php endif; ?>
 
             <!-- Статичные фотографии по умолчанию -->
             <?php if ($staticPhotos): ?>
             <div class="card" style="margin-top:25px;">
-                <div class="card-header"><h2>Статичные фотографии по умолчанию (<?= count($staticPhotos) ?>)</h2></div>
+                <div class="card-header"><h2>Статичные медиафайлы по умолчанию (<?= count($staticPhotos) ?>)</h2></div>
                 <div class="card-body">
                     <div class="gallery-grid">
                     <?php foreach ($staticPhotos as $filename): ?>
-                        <?php $val = "static:" . $filename; ?>
+                        <?php 
+                        $val = "static:" . $filename; 
+                        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+                        $isVideo = in_array($ext, ['mp4', 'webm', 'ogg', 'mov', 'avi']);
+                        ?>
                         <div class="gallery-item">
                             <input type="checkbox" name="selected_photos[]" class="photo-checkbox select-checkbox" value="<?= htmlspecialchars($val) ?>">
-                            <img src="../images/gallery/<?= htmlspecialchars($filename) ?>" alt="" loading="lazy"
-                                 onerror="this.parentElement.style.background='#fee'">
+                            <?php if ($isVideo): ?>
+                                <video src="../images/gallery/<?= htmlspecialchars($filename) ?>" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; background: rgba(0,0,0,0.6); padding: 8px 12px; border-radius: 50%; pointer-events: none; z-index: 5;">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            <?php else: ?>
+                                <img src="../images/gallery/<?= htmlspecialchars($filename) ?>" alt="" loading="lazy"
+                                     onerror="this.parentElement.style.background='#fee'">
+                            <?php endif; ?>
                             <span class="filename"><?= htmlspecialchars($filename) ?></span>
                             <button type="button" class="btn btn-sm btn-danger del-btn" onclick="deleteSinglePhoto('<?= htmlspecialchars($val) ?>')">
                                 <i class="fas fa-trash"></i>

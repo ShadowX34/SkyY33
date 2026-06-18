@@ -127,7 +127,7 @@ foreach ($prices as $p) {
         </div>
         <?php endif; ?>
 
-        <form method="post" action="prices_save.php">
+        <form method="post" action="prices_save.php" enctype="multipart/form-data">
             <!-- Вкладки категорий -->
             <div class="prices-tabs">
                 <button type="button" class="tab-btn active" onclick="switchTab(event, 'jumps-tab')">
@@ -301,9 +301,10 @@ foreach ($prices as $p) {
                                 <td style="vertical-align: top; padding-top: 15px;"><?= $p['id'] ?></td>
                                 <td style="vertical-align: top; padding-top: 15px;">
                                     <input type="text" name="services[<?= $p['id'] ?>][name]" value="<?= htmlspecialchars($p['service_name']) ?>" required style="font-weight: 600;">
-                                    <div style="font-size: 0.75rem; color: #888; margin-top: 5px; font-family: monospace;">
-                                        Картинка: <?= htmlspecialchars($p['image']) ?>
+                                    <div style="font-size: 0.75rem; color: #888; margin-top: 5px; margin-bottom: 5px;">
+                                        Текущая: <?= htmlspecialchars($p['image']) ?>
                                     </div>
+                                    <input type="file" name="image_<?= $p['id'] ?>" accept="image/*" style="font-size: 0.8rem; width: 100%; max-width: 180px;">
                                     <input type="hidden" name="services[<?= $p['id'] ?>][unit]" value="1">
                                 </td>
                                 <td>
@@ -344,7 +345,7 @@ foreach ($prices as $p) {
                 <h2><i class="fas fa-plus-circle"></i> Добавить новую услугу или сертификат</h2>
             </div>
             <div class="card-body">
-                <form method="post" action="prices_add.php">
+                <form method="post" action="prices_add.php" enctype="multipart/form-data">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="new_name">Название услуги *</label>
@@ -372,8 +373,8 @@ foreach ($prices as $p) {
                             <textarea id="new_desc" name="description" placeholder="Краткое описание подарочного сертификата..."></textarea>
                         </div>
                         <div class="form-group span2" id="image_group" style="display: none;">
-                            <label for="new_image">Путь к картинке (или оставьте пустым)</label>
-                            <input type="text" id="new_image" name="image" placeholder="Например: images/б1.webp">
+                            <label for="new_image">Изображение сертификата (jpg, jpeg, png, webp)</label>
+                            <input type="file" id="new_image" name="image" accept="image/*">
                         </div>
                     </div>
                     <div style="margin-top: 20px; display: flex; justify-content: flex-end;">

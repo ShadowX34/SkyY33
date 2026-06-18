@@ -38,7 +38,7 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
         <div class="card">
             <div class="card-header"><h2><?= $edit ? 'Редактировать акцию' : 'Добавить акцию' ?></h2></div>
             <div class="card-body">
-                <form method="post" action="stocks_save.php">
+                <form method="post" action="stocks_save.php" enctype="multipart/form-data">
                     <?php if ($edit): ?><input type="hidden" name="id" value="<?= $edit['id'] ?>"><?php endif; ?>
                     <div class="form-grid">
                         <div class="form-group span2">
@@ -62,8 +62,16 @@ $rows = $pdo->query("SELECT * FROM stocks ORDER BY sort_order ASC, id ASC")->fet
                             <input type="text" name="detail_text" value="<?= htmlspecialchars($edit['detail_text'] ?? '') ?>">
                         </div>
                         <div class="form-group span2">
-                            <label>Изображение (путь, напр. images/скидка.webp или URL)</label>
-                            <input type="text" name="image" value="<?= htmlspecialchars($edit['image'] ?? '') ?>" placeholder="images/скидка.webp" style="width:100%">
+                            <label>Изображение акции (выберите файл)</label>
+                            <input type="file" name="image" accept="image/*" style="width:100%">
+                            <?php if ($edit && $edit['image']): ?>
+                                <div style="margin-top: 5px; font-size: 0.85rem; color: #666;">
+                                    Текущее изображение: <?= htmlspecialchars($edit['image']) ?>
+                                    <br>
+                                    <img src="../<?= htmlspecialchars($edit['image']) ?>" style="max-height: 80px; margin-top: 5px;">
+                                </div>
+                                <input type="hidden" name="existing_image" value="<?= htmlspecialchars($edit['image']) ?>">
+                            <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label>Порядок сортировки</label>

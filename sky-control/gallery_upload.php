@@ -6,16 +6,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_FILES['images'])) {
     header('Location: gallery.php'); exit;
 }
 
-$allowed = ['jpg','jpeg','png','webp'];
+$allowedImages = ['jpg','jpeg','png','webp'];
+$allowedVideos = ['mp4','webm','ogg','mov','avi'];
 $uploaded = 0;
 
 foreach ($_FILES['images']['tmp_name'] as $i => $tmp) {
     if ($_FILES['images']['error'][$i] !== UPLOAD_ERR_OK) continue;
-    if (!getimagesize($tmp)) continue;
 
     $ext = strtolower(pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION));
-    if (!in_array($ext, $allowed)) continue;
-    if ($_FILES['images']['size'][$i] > 15 * 1024 * 1024) continue; // 15MB max
+    $isImage = in_array($ext, $allowedImages);
+    $isVideo = in_array($ext, $allowedVideos);
+
+    if (!$isImage && !$isVideo) continue;
+    if ($isImage && !getimagesize($tmp)) continue;
+    if ($_FILES['images']['size'][$i] > 50 * 1024 * 1024) continue; // 50MB max
 
     $filename = 'gallery_' . uniqid() . '.' . $ext;
     if (move_uploaded_file($tmp, '../images/gallery/' . $filename)) {

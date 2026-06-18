@@ -212,25 +212,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Маска телефона +7 (XXX) XXX-XX-XX
     if (phoneInput) {
         phoneInput.placeholder = '+7 (___) ___-__-__';
-        phoneInput.pattern = '^(\\+7|8)\\s?\\(\\d{3}\\)\\s?\\d{3}-\\d{2}-\\d{2}$';
+        phoneInput.pattern = '^\\+7\\s?\\(\\d{3}\\)\\s?\\d{3}-\\d{2}-\\d{2}$';
         phoneInput.title = 'Введите 11 цифр в формате +7 (XXX) XXX-XX-XX';
 
         phoneInput.addEventListener('input', function (e) {
             let input = e.target.value.replace(/\D/g, '');
             let formatted = '';
 
-            if (['7', '8', '9'].indexOf(input[0]) > -1) {
-                if (input[0] === '9') input = '7' + input;
-                let firstSymbol = (input[0] === '8') ? '8' : '+7';
-                formatted = firstSymbol + ' ';
+            if (input.length > 0) {
+                if (input[0] === '8' || input[0] === '7') {
+                    input = '7' + input.substring(1);
+                } else {
+                    input = '7' + input;
+                }
+                
+                formatted = '+7 ';
                 if (input.length > 1) formatted += '(' + input.substring(1, 4);
                 if (input.length >= 5) formatted += ') ' + input.substring(4, 7);
                 if (input.length >= 8) formatted += '-' + input.substring(7, 9);
                 if (input.length >= 10) formatted += '-' + input.substring(9, 11);
-            } else {
-                formatted = '+' + input.substring(0, 15);
             }
-            if (input.length === 0) formatted = '';
+            
             e.target.value = formatted;
         });
 

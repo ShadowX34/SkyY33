@@ -15,11 +15,29 @@ $is_active   = isset($_POST['is_active']) ? 1 : 0;
 
 if (!$title) { header('Location: stocks.php?msg=error'); exit; }
 
+$image = $_POST['existing_image'] ?? '';
+
+if (!empty($_FILES['image']['name'])) {
+    $allowed = ['jpg','jpeg','png','webp','gif'];
+    $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+    if (in_array($ext, $allowed) && getimagesize($_FILES['image']['tmp_name'])) {
+        $filename = 'stock_' . uniqid() . '.' . $ext;
+        if (move_uploaded_file($_FILES['image']['tmp_name'], '../images/' . $filename)) {
+            @chmod('../images/' . $filename, 0644);
+            $image = 'images/' . $filename;
+        } else {
+            header('Location: stocks.php?msg=error'); exit;
+        }
+    } else {
+        header('Location: stocks.php?msg=error'); exit;
+    }
+}
+
 if ($id > 0) {
     $stmt = $pdo->prepare("UPDATE stocks SET title=?,description=?,tag=?,price_label=?,detail_text=?,image=?,sort_order=?,is_active=? WHERE id=?");
-    $stmt->execute([$title,$description,$tag,$price_label,$detail_text,$_POST['image'] ?? '',$sort_order,$is_active,$id]);
+    $stmt->execute([$title,$description,$tag,$price_label,$detail_text,$image,$sort_order,$is_active,$id]);
 } else {
     $stmt = $pdo->prepare("INSERT INTO stocks (title,description,tag,price_label,detail_text,image,sort_order,is_active) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->execute([$title,$description,$tag,$price_label,$detail_text,$_POST['image'] ?? '',$sort_order,$is_active]);
+    $stmt->execute([$title,$description,$tag,$price_label,$detail_text,$image,$sort_order,$is_active]);
 }
 header('Location: stocks.php?msg=saved'); exit;

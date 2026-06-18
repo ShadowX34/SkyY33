@@ -1,24 +1,41 @@
 <?php
 require 'includes/db_connect.php';
 
-// Получаем список загруженных через админку фото
-$adminPhotos = $pdo->query("SELECT filename FROM gallery_photos ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
+// Получаем список загруженных через админку файлов
+$adminMedia = $pdo->query("SELECT filename FROM gallery_photos ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN);
 
 $allPhotos = [];
+$allVideos = [];
+$videoExts = ['mp4', 'webm', 'ogg', 'mov', 'avi'];
 
-// Фильтруем и добавляем админские фотографии, только если они реально существуют на диске
-foreach ($adminPhotos as $photo) {
-    $path = 'images/gallery/' . $photo;
+// Фильтруем и добавляем админские медиафайлы
+foreach ($adminMedia as $media) {
+    $path = 'images/gallery/' . $media;
     if (file_exists($path)) {
-        $allPhotos[] = $path;
+        $ext = strtolower(pathinfo($media, PATHINFO_EXTENSION));
+        if (in_array($ext, $videoExts)) {
+            $allVideos[] = $path;
+        } else {
+            $allPhotos[] = $path;
+        }
     }
 }
 
-// Добавляем первые 24 статичные фотографии по умолчанию, только если они реально существуют на диске
-for ($i = 1; $i <= 24; $i++) {
-    $path = "images/gallery/{$i}.jpg";
-    if (file_exists($path)) {
-        $allPhotos[] = $path;
+// Добавляем статичные медиафайлы, сканируя папку динамически
+$staticFiles = glob('images/gallery/*');
+if ($staticFiles) {
+    natsort($staticFiles);
+    foreach ($staticFiles as $path) {
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        if (in_array($ext, $videoExts)) {
+            if (!in_array($path, $allVideos)) {
+                $allVideos[] = $path;
+            }
+        } elseif (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
+            if (!in_array($path, $allPhotos)) {
+                $allPhotos[] = $path;
+            }
+        }
     }
 }
 
@@ -50,6 +67,19 @@ require_once 'includes/header.php';
 
         <!-- ===== ВИДЕО ===== -->
         <h2 class="video-section-title">ВИДЕО</h2>
+
+        <?php if (!empty($allVideos)): ?>
+        <div class="video-grid" style="width: 100%; margin-bottom: 30px;">
+            <?php foreach ($allVideos as $videoPath): ?>
+                <div class="video-card">
+                    <div class="video-year"><?= date('Y') ?></div>
+                    <div class="video-wrapper">
+                        <video src="<?= htmlspecialchars($videoPath) ?>" controls style="width: 100%; height: 100%; object-fit: cover; display: block; border: none;"></video>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
 
 
         <!-- Ряд 1 -->
